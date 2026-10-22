@@ -30,3 +30,7 @@ Daily creative learning experiments using CSS, React, VR, A-Frame and Three.js. 
 | 8 | 🍦 Fridge | [View experiment](codevember-2017/day-8/index.html) | [CodePen](https://codepen.io/valentin/full/vWjNPv) |
 | 9 | 🍟 French Fries | [View experiment](codevember-2017/day-9/index.html) | [CodePen](https://codepen.io/valentin/full/aVGZvB) |
 | Bonus | 🐰🏀 Space Jam Logo | [View experiment](codevember-2017/space-jam/index.html) | [CodePen](https://codepen.io/valentin/full/NaJMmG) |
+
+## License
+
+Copyright © 2019 Valentin Radulescu. Licensed under the [MIT License](LICENSE).
