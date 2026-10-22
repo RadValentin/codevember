@@ -1,11 +1,11 @@
 {
-  "name": "codevember-2017",
+  "name": "codevember",
   "version": "1.0.0",
-  "description": "Daily creative learning experiments using React, VR, A-Frame and Three.js",
-  "main": "index.html",
+  "description": "Creative learning experiments using CSS, React, VR, A-Frame and Three.js",
+  "source": "index.html",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RadValentin/codevember-2017.git"
+    "url": "git+https://github.com/RadValentin/codevember.git"
   },
   "keywords": [
     "a-frame",
@@ -16,13 +16,14 @@
   "author": "Valentin Radulescu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RadValentin/codevember-2017/issues"
+    "url": "https://github.com/RadValentin/codevember/issues"
   },
-  "homepage": "https://github.com/RadValentin/codevember-2017#readme",
+  "homepage": "https://radvalentin.github.io/codevember/",
   "scripts": {
-    "start": "http-server -c-1"
+    "start": "parcel",
+    "build": "parcel build"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "parcel": "latest"
   }
 }
