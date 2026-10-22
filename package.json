@@ -20,10 +20,9 @@
   },
   "homepage": "https://radvalentin.github.io/codevember/",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "start": "http-server -c-1"
   },
   "devDependencies": {
-    "parcel": "latest"
+    "http-server": "^14.1.1"
   }
 }

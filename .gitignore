@@ -65,3 +65,6 @@ typings/
 # Parcel.js artefacts
 .cache
 dist
+
+# SASS
+*.css.map
