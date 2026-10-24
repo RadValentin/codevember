@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Luckiest Guy";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./font/LuckiestGuy-Regular.ttf") format("truetype");
+}
