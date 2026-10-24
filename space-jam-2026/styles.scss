@@ -18,8 +18,8 @@
   $stars: ();
 
   @for $i from 1 through $num-stars {
-    $x-pos: math.random(100 - 4) + 2;
-    $y-pos: math.random(100 - 4) + 2;
+    $x-pos: math.random() * 100;
+    $y-pos: math.random() * 100;
 
     $stars: list.append(
       $stars,
@@ -31,7 +31,7 @@
   @return $stars;
 }
 
-$sm-stars: get_stars_bg_shadow(700, 0, 0);
+$sm-stars: get_stars_bg_shadow(300, 0, 0);
 $md-stars: get_stars_bg_shadow(200, 0, 0);
 $lg-stars: get_stars_bg_shadow(100, 0, 0);
 
@@ -52,13 +52,9 @@ body {
   width: max(2560px, 100vw);
   height: max(1440px, 100vh);
   overflow: hidden;
-
-  container-name: background-container;
   container-type: size;
-}
 
-@container background-container {
-  div[class^=stars] {
+  .stars {
     position: absolute;
     top: 0;
     left: 0;
@@ -68,6 +64,16 @@ body {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     transform: translate3d(0, 0, 0);
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -100cqw;
+      width: inherit;
+      height: inherit;
+      box-shadow: inherit;
+    }
   }
 
   .stars-lg {
@@ -75,16 +81,6 @@ body {
     height: 3px;
     box-shadow: $lg-stars;
     animation-duration: 180s;
-
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      left: -100cqw;
-      width: 3px;
-      height: 3px;
-      box-shadow: $lg-stars;
-    }
   }
 
   .stars-md {
@@ -92,16 +88,6 @@ body {
     height: 2px;
     box-shadow: $md-stars;
     animation-duration: 120s;
-
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      left: -100cqw;
-      width: 2px;
-      height: 2px;
-      box-shadow: $md-stars;
-    }
   }
 
   .stars-sm {
@@ -109,16 +95,6 @@ body {
     height: 1px;
     box-shadow: $sm-stars;
     animation-duration: 60s;
-
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      left: -100cqw;
-      width: 1px;
-      height: 1px;
-      box-shadow: $sm-stars;
-    }
   }
 }
 
@@ -129,6 +105,14 @@ body {
 
   to {
     transform: translate3d(100cqw, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background {
+    div[class^=stars] {
+      animation-play-state: paused;
+    }
   }
 }
 
