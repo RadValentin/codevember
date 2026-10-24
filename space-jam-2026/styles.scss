@@ -1,6 +1,105 @@
-$coral: coral;
+@use "sass:list";
+@use "sass:math";
+@use "sass:string";
 
-h1 {
-  color: $coral;
-  font-family: monospace;
+// ## Background ##
+// NOTE: First attempt for animating the background used `background-position`
+// which resulted in choppy animation.
+$background-size: 500px;
+$sm-stars: 100;
+$md-stars: 100;
+$lg-stars: 100;
+
+@function get_stars($bg-size, $num-stars, $max-spread: 2) {
+  $stars: ();
+
+  @for $i from 1 through $num-stars {
+    $min-spread: math.div($max-spread, 2);
+    $spread-range: $max-spread - $min-spread;
+    $spread: $min-spread + math.random() * $spread-range;
+    $brightness: 1;
+    $x-pos: math.random(math.div($bg-size, 1px) - 10) + 5;
+    $y-pos: math.random(math.div($bg-size, 1px) - 10) + 5;
+
+    $stars: list.append($stars, string.unquote(
+      "radial-gradient(circle at #{$x-pos}px #{$y-pos}px,"+
+      "rgba(255, 255, 255, #{$brightness}), transparent #{$spread}px)"
+    ), comma);
+  }
+
+  @return $stars;
 }
+
+html {
+  background-color: #000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.background {
+  position: fixed;
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+
+  div[class^=stars] {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100vw + $background-size);
+    height: 100vh;
+
+    background-size: $background-size $background-size;
+    background-repeat: repeat;
+    animation-name: background-anim;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  .stars-lg {
+    background: get_stars($background-size, $lg-stars, 3);
+    animation-duration: 60s;
+
+  }
+
+  .stars-md {
+    background: get_stars($background-size, $md-stars, 2);
+    animation-duration: 30s;
+
+  }
+
+  .stars-sm {
+    background: get_stars($background-size, $lg-stars, 1);
+    animation-duration: 20s;
+  }
+}
+
+@keyframes background-anim {
+  from {
+    transform: translateX(-$background-size);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@supports not (width: #{"random"}(10px, 500px)) {
+  .support::after {
+    content: "random() is not supported";
+  }
+}
+
+@supports (width: #{"random"}(10px, 500px)) {
+  .support::after {
+    content: "random() is supported";
+  }
+}
+
+// ## Logo ##
