@@ -3,32 +3,37 @@
 @use "sass:string";
 
 // ## Background ##
-// NOTE: First attempt for animating the background used `background-position`
+//
+// NOTES:
+// First attempt for animating the background used `background-position`
 // which resulted in choppy animation.
-$background-size: 500px;
-$sm-stars: 100;
-$md-stars: 100;
-$lg-stars: 100;
+//
+// Second attempt uses:
+// - container query units to distribute the stars on a area that's at least 2000px in size
+//   and which scales up on larger displays.
+// - each layer of stars has 2 copies that create an infinite loop effect, also scaled to
+//   container size.
 
-@function get_stars($bg-size, $num-stars, $max-spread: 2) {
+@function get_stars_bg_shadow($num-stars, $blur: 0, $spread: 0) {
   $stars: ();
 
   @for $i from 1 through $num-stars {
-    $min-spread: math.div($max-spread, 2);
-    $spread-range: $max-spread - $min-spread;
-    $spread: $min-spread + math.random() * $spread-range;
-    $brightness: 1;
-    $x-pos: math.random(math.div($bg-size, 1px) - 10) + 5;
-    $y-pos: math.random(math.div($bg-size, 1px) - 10) + 5;
+    $x-pos: math.random(100 - 4) + 2;
+    $y-pos: math.random(100 - 4) + 2;
 
-    $stars: list.append($stars, string.unquote(
-      "radial-gradient(circle at #{$x-pos}px #{$y-pos}px,"+
-      "rgba(255, 255, 255, #{$brightness}), transparent #{$spread}px)"
-    ), comma);
+    $stars: list.append(
+      $stars,
+      string.unquote("#{$x-pos}cqw #{$y-pos}cqh #{$blur}px #{$spread}px #fff"),
+      comma
+    );
   }
 
   @return $stars;
 }
+
+$sm-stars: get_stars_bg_shadow(700, 0, 0);
+$md-stars: get_stars_bg_shadow(200, 0, 0);
+$lg-stars: get_stars_bg_shadow(100, 0, 0);
 
 html {
   background-color: #000;
@@ -42,63 +47,88 @@ body {
 
 .background {
   position: fixed;
-  min-width: 100vw;
-  min-height: 100vh;
+  top: 0;
+  left: 0;
+  width: max(2560px, 100vw);
+  height: max(1440px, 100vh);
   overflow: hidden;
 
+  container-name: background-container;
+  container-type: size;
+}
+
+@container background-container {
   div[class^=stars] {
-    content: "";
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100vw + $background-size);
-    height: 100vh;
+    background-color: transparent;
 
-    background-size: $background-size $background-size;
-    background-repeat: repeat;
     animation-name: background-anim;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    transform: translate3d(0, 0, 0);
   }
 
   .stars-lg {
-    background: get_stars($background-size, $lg-stars, 3);
-    animation-duration: 60s;
+    width: 3px;
+    height: 3px;
+    box-shadow: $lg-stars;
+    animation-duration: 180s;
 
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -100cqw;
+      width: 3px;
+      height: 3px;
+      box-shadow: $lg-stars;
+    }
   }
 
   .stars-md {
-    background: get_stars($background-size, $md-stars, 2);
-    animation-duration: 30s;
+    width: 2px;
+    height: 2px;
+    box-shadow: $md-stars;
+    animation-duration: 120s;
 
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -100cqw;
+      width: 2px;
+      height: 2px;
+      box-shadow: $md-stars;
+    }
   }
 
   .stars-sm {
-    background: get_stars($background-size, $lg-stars, 1);
-    animation-duration: 20s;
+    width: 1px;
+    height: 1px;
+    box-shadow: $sm-stars;
+    animation-duration: 60s;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -100cqw;
+      width: 1px;
+      height: 1px;
+      box-shadow: $sm-stars;
+    }
   }
 }
 
 @keyframes background-anim {
   from {
-    transform: translateX(-$background-size);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translateX(0);
-  }
-}
-
-@supports not (width: #{"random"}(10px, 500px)) {
-  .support::after {
-    content: "random() is not supported";
-  }
-}
-
-@supports (width: #{"random"}(10px, 500px)) {
-  .support::after {
-    content: "random() is supported";
+    transform: translate3d(100cqw, 0, 0);
   }
 }
 
