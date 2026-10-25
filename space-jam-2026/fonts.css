@@ -1,7 +1,15 @@
 @font-face {
-  font-family: "Luckiest Guy";
+  font-family: 'Luckiest Guy';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("./font/LuckiestGuy-Regular.ttf") format("truetype");
+  src: url('./font/Luckiest_Guy/LuckiestGuy-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Paytone One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./font/Paytone_One/PaytoneOne-Regular.ttf') format('truetype');
 }
