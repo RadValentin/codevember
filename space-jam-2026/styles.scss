@@ -1,6 +1,6 @@
-@use "sass:list";
-@use "sass:math";
-@use "sass:string";
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:string';
 
 // ## Background ##
 //
@@ -23,7 +23,7 @@
 
     $stars: list.append(
       $stars,
-      string.unquote("#{$x-pos}cqw #{$y-pos}cqh #{$blur}px #{$spread}px #fff"),
+      string.unquote('#{$x-pos}cqw #{$y-pos}cqh #{$blur}px #{$spread}px #fff'),
       comma
     );
   }
@@ -66,7 +66,7 @@ body {
     transform: translate3d(0, 0, 0);
 
     &::after {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       left: -100cqw;
@@ -117,10 +117,183 @@ body {
 }
 
 // ## Logo ##
+$ring-diameter: 55cqw;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+}
 
 .space-jam-logo {
-  font-family: "Luckiest Guy", cursive;
-  font-weight: normal;
-  line-height: 1;
-  text-transform: uppercase;
+  position: relative;
+  aspect-ratio: 72 / 47;
+  width: 60vw;
+  margin: 0;
+  container-type: size;
+
+  // For each letter the element displays the shadow and the pseudo element displays
+  // the background and stroke.
+  span {
+    position: absolute;
+    display: inline-block;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 20cqw;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: uppercase;
+    text-shadow: .03em .03em #11192f;
+
+    &:after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-shadow: none;
+      background: radial-gradient(
+        circle at center, #cede73 0%, #a5cd63 21%, #3ab473 36%, #036ba5 54%
+      );
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-color: white;
+      -webkit-text-stroke-width: 0.25rem;
+    }
+  }
+
+  // Individual letter styling
+  .s-s {
+    font-size: 22.22cqw;
+    top: 16.66cqw;
+    left: 0;
+    z-index: 4;
+
+    &:after {
+      background-position: 0.03em 0.087em;
+    }
+  }
+
+  .s-p {
+    font-size: 18.47cqw;
+    top: 18.33cqw;
+    left: 9.72cqw;
+    z-index: 3;
+
+    &:after {
+      background-position: 0.06em 0.15em;
+    }
+  }
+
+  .s-a {
+    font-size: 21.52cqw;
+    top: 17.08cqw;
+    left: 17.11cqw;
+    z-index: 2;
+
+    &:after {
+      background-position: -0.129em 0.16em;
+    }
+  }
+
+  .s-c {
+    font-size: 19.44cqw;
+    top: 19.16cqw;
+    left: 27.36cqw;
+    z-index: 3;
+
+    &:after {
+      background-position: 0.057em 0.17em;
+    }
+  }
+
+  .s-e {
+    font-size: 19.44cqw;
+    top: 17.36cqw;
+    left: 35.83cqw;
+    z-index: 2;
+
+    &:after {
+      background-position: -0.071em 0.178em;
+    }
+  }
+
+  .j-j {
+    top: -3.47cqw;
+    left: 30.55cqw;
+    // Fixes issue where gradient BG doesn't cover the letter J's hook properly
+    padding-left: 1.11cqw;
+    font-size: 69.44cqw;
+    font-family: 'Paytone One';
+
+    &:after {
+      padding-left: inherit;
+      background-position: -0.04em 0.05em;
+      // background-image: radial-gradient(circle, transparent 45%, black 48%);
+    }
+
+    // Mask for J's lower hook (places it on top of rings)
+    &:not(:first-child):not(:last-child) {
+      &::after {
+        // background-image: radial-gradient(ellipse farthest-corner, #fc1c14 20%, #cf15cf 80%);
+      }
+      clip-path: rect(50% .16em 100% 0%);
+      // clip-path: rect(370px 79px 100% -10px);
+    }
+
+    // Mask for J's upper half (places it on top of rings)
+    &:last-child {
+      &::after {
+        // background-image: conic-gradient(from 0.25turn at 50% 30%, #f69d3c, 10deg, #3f87a6, 350deg, #ebf8e1);
+      }
+      clip-path: rect(0% 100% .46em 0%);
+      // clip-path: rect(0px 231px 224px 0px);
+    }
+  }
+
+  .j-a {
+    top: 9.72cqw;
+    left: 52cqw;
+    font-size: 38.88cqw;
+    z-index: 3;
+
+    &:after {
+      background-position: 0.035em 0.071em;
+    }
+  }
+
+  .j-m {
+    top: 9.72cqw;
+    left: 70cqw;
+    font-size: 37.5cqw;
+    z-index: 2;
+
+    &:after {
+      background-position: 0.111em 0.092em;
+    }
+  }
+
+  // Rings styling
+  .rings {
+    position: absolute;
+    top: -1.3cqw;
+    left: 25cqw;
+    width: $ring-diameter;
+    height: $ring-diameter;
+    transform: rotate(8deg) skewX(-33deg);
+  }
+
+  [class^=ring-] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
 }
