@@ -123,21 +123,20 @@ $ring-diameter: 55cqw;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100vw;
   min-height: 100vh;
 }
 
 .space-jam-logo {
   position: relative;
-  aspect-ratio: 72 / 47;
-  width: 60vw;
+  aspect-ratio: 72 / 46;
+  width: 720px;
+  // width: min(30vw, calc(80vh * 72 / 46));
   margin: 0;
   container-type: size;
 
   // For each letter the element displays the shadow and the pseudo element displays
   // the background and stroke.
   span {
-    position: absolute;
     display: inline-block;
     font-family: 'Luckiest Guy', cursive;
     font-size: 20cqw;
@@ -163,10 +162,24 @@ $ring-diameter: 55cqw;
   }
 
   // Individual letter styling
-  .s-s {
-    font-size: 22.22cqw;
-    top: 16.66cqw;
+  // SPACE: letter sizes are relative to this wrapper's font-size.
+  .space {
+    position: absolute;
     left: 0;
+    top: 16.66cqw;
+    display: flex;
+    font-size: 22.22cqw;
+
+    & > [class^=s-] {
+      position: relative;
+      top: var(--dy, 0cqw);
+      margin-left: var(--kern, -0.1em);
+    }
+  }
+
+  .s-s {
+    --kern: 0;
+    font-size: 1em;
     z-index: 4;
 
     &:after {
@@ -175,9 +188,8 @@ $ring-diameter: 55cqw;
   }
 
   .s-p {
-    font-size: 18.47cqw;
-    top: 18.33cqw;
-    left: 9.72cqw;
+    --dy: 1.67cqw;
+    font-size: 0.83em;
     z-index: 3;
 
     &:after {
@@ -186,9 +198,9 @@ $ring-diameter: 55cqw;
   }
 
   .s-a {
-    font-size: 21.52cqw;
-    top: 17.08cqw;
-    left: 17.11cqw;
+    --dy: 0.42cqw;
+    --kern: -0.18em;
+    font-size: 0.96em;
     z-index: 2;
 
     &:after {
@@ -197,9 +209,9 @@ $ring-diameter: 55cqw;
   }
 
   .s-c {
-    font-size: 19.44cqw;
-    top: 19.16cqw;
-    left: 27.36cqw;
+    --dy: 2.50cqw;
+    --kern: -0.18em;
+    font-size: 0.87em;
     z-index: 3;
 
     &:after {
@@ -208,9 +220,9 @@ $ring-diameter: 55cqw;
   }
 
   .s-e {
-    font-size: 19.44cqw;
-    top: 17.36cqw;
-    left: 35.83cqw;
+    --kern: -0.06em;
+    --dy: 0.70cqw;
+    font-size: 0.87em;
     z-index: 2;
 
     &:after {
@@ -218,7 +230,9 @@ $ring-diameter: 55cqw;
     }
   }
 
+  // JAM
   .j-j {
+    position: absolute;
     top: -3.47cqw;
     left: 30.55cqw;
     // Fixes issue where gradient BG doesn't cover the letter J's hook properly
@@ -233,25 +247,24 @@ $ring-diameter: 55cqw;
     }
 
     // Mask for J's lower hook (places it on top of rings)
-    &:not(:first-child):not(:last-child) {
+    &.j-hook {
       &::after {
         // background-image: radial-gradient(ellipse farthest-corner, #fc1c14 20%, #cf15cf 80%);
       }
       clip-path: rect(50% .16em 100% 0%);
-      // clip-path: rect(370px 79px 100% -10px);
     }
 
     // Mask for J's upper half (places it on top of rings)
-    &:last-child {
+    &.j-top {
       &::after {
         // background-image: conic-gradient(from 0.25turn at 50% 30%, #f69d3c, 10deg, #3f87a6, 350deg, #ebf8e1);
       }
       clip-path: rect(0% 100% .46em 0%);
-      // clip-path: rect(0px 231px 224px 0px);
     }
   }
 
   .j-a {
+    position: absolute;
     top: 9.72cqw;
     left: 52cqw;
     font-size: 38.88cqw;
@@ -263,6 +276,7 @@ $ring-diameter: 55cqw;
   }
 
   .j-m {
+    position: absolute;
     top: 9.72cqw;
     left: 70cqw;
     font-size: 37.5cqw;
