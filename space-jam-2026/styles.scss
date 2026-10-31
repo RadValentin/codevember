@@ -135,13 +135,14 @@ $letter-anim-length: .9s;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  // contain the logo's enlarged intro animation.
+  overflow: clip;
 }
 
 .space-jam-logo {
   position: relative;
   aspect-ratio: 72 / 46;
-  width: 720px;
-  // width: min(30vw, calc(80vh * 72 / 46));
+  width: min(720px, 90vmin);
   margin: 0;
   container-type: size;
   z-index: auto;
@@ -154,7 +155,6 @@ $letter-anim-length: .9s;
   .letter {
     --translate-y: 0px;
     --scale-x: 1;
-    --scale-y: 1;
 
     display: inline-block;
     font-family: 'Luckiest Guy', cursive;
@@ -163,7 +163,7 @@ $letter-anim-length: .9s;
     line-height: 1;
     text-transform: uppercase;
     text-shadow: .03em .03em #11192f;
-    transform: scaleX(var(--scale-x)) scaleY(var(--scale-y)) translateY(var(--translate-y));
+    transform: scaleX(var(--scale-x)) translateY(var(--translate-y));
     animation: letterAnim $letter-anim-length forwards ease-in-out;
 
     &:after {
@@ -178,7 +178,7 @@ $letter-anim-length: .9s;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       -webkit-text-stroke-color: white;
-      -webkit-text-stroke-width: 0.25rem;
+      -webkit-text-stroke-width: 0.55cqw;
     }
 
     $letter-anim-order: '.s-s', '.s-p', '.s-a', '.s-c', '.s-e', '.j-j', '.j-a', '.j-m';
@@ -249,8 +249,8 @@ $letter-anim-length: .9s;
   }
 
   .s-e {
-    --kern: -0.06em;
     --dy: 0.70cqw;
+    --kern: -0.06em;
     font-size: 0.87em;
     z-index: 2;
 
@@ -261,7 +261,6 @@ $letter-anim-length: .9s;
 
   // JAM
   .j-j {
-    --scale-y: 1;
     --scale-x: 1.2;
     position: absolute;
     top: 2cqw;
@@ -280,18 +279,12 @@ $letter-anim-length: .9s;
 
     // Mask for J's lower hook (places it on top of rings)
     &.j-hook {
-      &::after {
-        // background-image: radial-gradient(ellipse farthest-corner, #fc1c14 20%, #cf15cf 80%);
-      }
-      clip-path: rect(50% .16em 100% 0%);
+      mask: linear-gradient(#000 0 0) left bottom / .16em 50% no-repeat;
     }
 
     // Mask for J's upper half (places it on top of rings)
     &.j-top {
-      &::after {
-        // background-image: conic-gradient(from 0.25turn at 50% 30%, #f69d3c, 10deg, #3f87a6, 350deg, #ebf8e1);
-      }
-      clip-path: rect(0% 100% .46em 0%);
+      clip-path: rect(0% 100% .40em 0%);
     }
   }
 
