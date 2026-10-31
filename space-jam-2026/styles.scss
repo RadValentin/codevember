@@ -118,6 +118,11 @@ body {
 
 // ## Logo ##
 $ring-diameter: 55cqw;
+$ring-thickness: 4.16cqw;
+
+$initial-anim-length: 1s;
+$letter-anim-delay: .1s;
+$letter-anim-length: .9s;
 
 .container {
   display: flex;
@@ -133,10 +138,14 @@ $ring-diameter: 55cqw;
   // width: min(30vw, calc(80vh * 72 / 46));
   margin: 0;
   container-type: size;
+  z-index: auto;
+  opacity: 1;
+  transform: scale(1);
+  animation: introAnim $initial-anim-length forwards reverse;
 
   // For each letter the element displays the shadow and the pseudo element displays
   // the background and stroke.
-  span {
+  .letter {
     display: inline-block;
     font-family: 'Luckiest Guy', cursive;
     font-size: 20cqw;
@@ -144,6 +153,8 @@ $ring-diameter: 55cqw;
     line-height: 1;
     text-transform: uppercase;
     text-shadow: .03em .03em #11192f;
+    transform: translateY(0);
+    animation: letterAnim $letter-anim-length forwards ease-in-out;
 
     &:after {
       content: attr(data-text);
@@ -159,6 +170,14 @@ $ring-diameter: 55cqw;
       -webkit-text-stroke-color: white;
       -webkit-text-stroke-width: 0.25rem;
     }
+
+    $letter-anim-order: '.s-s', '.s-p', '.s-a', '.s-c', '.s-e', '.j-j', '.j-a', '.j-m';
+    @each $letter in $letter-anim-order {
+      $i: list.index($letter-anim-order, $letter);
+      &#{$letter} {
+        animation-delay: ($i - 1) * $letter-anim-delay + $initial-anim-length;
+      }
+    }
   }
 
   // Individual letter styling
@@ -170,7 +189,7 @@ $ring-diameter: 55cqw;
     display: flex;
     font-size: 22.22cqw;
 
-    & > [class^=s-] {
+    & > .letter {
       position: relative;
       top: var(--dy, 0cqw);
       margin-left: var(--kern, -0.1em);
@@ -311,3 +330,29 @@ $ring-diameter: 55cqw;
     }
   }
 }
+
+@keyframes introAnim {
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+@keyframes letterAnim {
+  0% {
+    transform: translateY(0px);
+  }
+
+  25% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
