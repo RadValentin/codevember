@@ -117,8 +117,14 @@ body {
 }
 
 // ## Logo ##
+@property --translate-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
 $ring-diameter: 55cqw;
-$ring-thickness: 4.16cqw;
+$ring-thickness: 4.17cqw;
 
 $initial-anim-length: 1s;
 $letter-anim-delay: .1s;
@@ -146,6 +152,10 @@ $letter-anim-length: .9s;
   // For each letter the element displays the shadow and the pseudo element displays
   // the background and stroke.
   .letter {
+    --translate-y: 0px;
+    --scale-x: 1;
+    --scale-y: 1;
+
     display: inline-block;
     font-family: 'Luckiest Guy', cursive;
     font-size: 20cqw;
@@ -153,7 +163,7 @@ $letter-anim-length: .9s;
     line-height: 1;
     text-transform: uppercase;
     text-shadow: .03em .03em #11192f;
-    transform: translateY(0);
+    transform: scaleX(var(--scale-x)) scaleY(var(--scale-y)) translateY(var(--translate-y));
     animation: letterAnim $letter-anim-length forwards ease-in-out;
 
     &:after {
@@ -251,13 +261,16 @@ $letter-anim-length: .9s;
 
   // JAM
   .j-j {
+    --scale-y: 1;
+    --scale-x: 1.2;
     position: absolute;
-    top: -3.47cqw;
-    left: 30.55cqw;
+    top: 2cqw;
+    left: 28cqw;
     // Fixes issue where gradient BG doesn't cover the letter J's hook properly
     padding-left: 1.11cqw;
     font-size: 69.44cqw;
-    font-family: 'Paytone One';
+    font-family: "Boogaloo", sans-serif;
+    font-weight: 400;
 
     &:after {
       padding-left: inherit;
@@ -363,19 +376,19 @@ $letter-anim-length: .9s;
 
 @keyframes letterAnim {
   0% {
-    transform: translateY(0px);
+    --translate-y: 0px;
   }
 
   25% {
-    transform: translateY(-10px);
+    --translate-y: -10px;
   }
 
   60% {
-    transform: translateY(20px);
+    --translate-y: 20px;
   }
 
   100% {
-    transform: translateY(0px);
+    --translate-y: 0px;
   }
 }
 
