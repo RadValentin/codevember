@@ -329,6 +329,29 @@ $letter-anim-length: .9s;
       border-radius: 50%;
     }
   }
+
+  @for $i from 0 through 3 {
+    .ring-#{$i+1} {
+      $new-diameter: $ring-diameter - 2 * $i * $ring-thickness;
+      // Convert thickness / radius to a percentage for the gradient.
+      $perc-thickness: 100% - calc(100% * $ring-thickness / ($new-diameter / 2));
+
+      width: $new-diameter;
+      height: $new-diameter;
+
+      &:after {
+        width: $new-diameter;
+        height: $new-diameter;
+        background: radial-gradient(
+          circle closest-side,
+          transparent $perc-thickness,
+          #f6eb16 $perc-thickness,
+          #ed2224 88%,
+          #35469d 100%
+        );
+      }
+    }
+  }
 }
 
 @keyframes introAnim {
