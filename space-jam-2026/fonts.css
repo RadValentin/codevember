@@ -13,3 +13,12 @@
   font-display: swap;
   src: url('./font/Paytone_One/PaytoneOne-Regular.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Boogaloo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./font/Boogaloo/Boogaloo-Regular.ttf') format('truetype');
+}
+
