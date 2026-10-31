@@ -130,6 +130,17 @@ $initial-anim-length: 1s;
 $letter-anim-delay: .1s;
 $letter-anim-length: .9s;
 
+.visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -153,7 +164,7 @@ $letter-anim-length: .9s;
   // For each letter the element displays the shadow and the pseudo element displays
   // the background and stroke.
   .letter {
-    --translate-y: 0px;
+    --translate-y: 0cqw;
     --scale-x: 1;
 
     display: inline-block;
@@ -369,19 +380,25 @@ $letter-anim-length: .9s;
 
 @keyframes letterAnim {
   0% {
-    --translate-y: 0px;
+    --translate-y: 0cqw;
   }
 
   25% {
-    --translate-y: -10px;
+    --translate-y: -1.38cqw;
   }
 
   60% {
-    --translate-y: 20px;
+    --translate-y: 2.77cqw;
   }
 
   100% {
-    --translate-y: 0px;
+    --translate-y: 0cqw;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .space-jam-logo,
+  .space-jam-logo .letter {
+    animation: none;
+  }
+}
