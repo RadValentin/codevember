@@ -2,6 +2,12 @@
 @use 'sass:math';
 @use 'sass:string';
 
+
+// ## Custom functions ##
+
+
+
+
 // ## Background ##
 //
 // NOTES:
@@ -116,7 +122,9 @@ body {
   }
 }
 
+
 // ## Logo ##
+
 @property --translate-y {
   syntax: '<length>';
   inherits: false;
@@ -146,6 +154,7 @@ $letter-anim-length: .9s;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  perspective: 1100px;
   // contain the logo's enlarged intro animation.
   overflow: clip;
 }
@@ -156,10 +165,11 @@ $letter-anim-length: .9s;
   width: min(720px, 90vmin);
   margin: 0;
   container-type: size;
+  transform-style: preserve-3d;
   z-index: auto;
   opacity: 1;
   transform: scale(1);
-  animation: introAnim $initial-anim-length forwards reverse;
+  animation: introAnim $initial-anim-length backwards reverse;
 
   // For each letter the element displays the shadow and the pseudo element displays
   // the background and stroke.
@@ -371,6 +381,18 @@ $letter-anim-length: .9s;
   }
 }
 
+.space-jam-logo.reveal {
+  transform: rotateX(28deg) rotateY(-38deg);
+
+  .space {
+    transform: translateZ(15cqw);
+  }
+
+  .rings {
+    transform: translateZ(-15cqw);
+  }
+}
+
 @keyframes introAnim {
   100% {
     opacity: 0;
@@ -401,4 +423,12 @@ $letter-anim-length: .9s;
   .space-jam-logo .letter {
     animation: none;
   }
+}
+
+// ## Controls ##
+
+#reveal-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
