@@ -5,7 +5,32 @@
 
 // ## Custom functions ##
 
+$global-seed: 42;
 
+@function seeded-random($limit: null) {
+  // Uses a linear congruential generator:
+  // https://en.wikipedia.org/wiki/Linear_congruential_generator
+
+  // LCG constants (Commonly used values)
+  $a: 1103515245;
+  $c: 12345;
+  $m: 2147483648; // 2^31
+
+  // Update the global seed using the formula: (a * seed + c) % m
+  $global-seed: ($a * $global-seed + $c) % $m !global;
+
+  $value: math.div($global-seed, $m);
+
+  @if $limit == null {
+    @return $value;
+  }
+
+  @if $limit < 1 or $limit != math.floor($limit) {
+    @error '$limit must be a positive integer.';
+  }
+
+  @return math.floor($value * $limit) + 1;
+}
 
 
 // ## Background ##
@@ -24,8 +49,8 @@
   $stars: ();
 
   @for $i from 1 through $num-stars {
-    $x-pos: math.random() * 100;
-    $y-pos: math.random() * 100;
+    $x-pos: seeded-random() * 100;
+    $y-pos: seeded-random() * 100;
 
     $stars: list.append(
       $stars,
