@@ -162,6 +162,7 @@ body {
   top: 16.66cqw;
   display: flex;
   font-size: 22.22cqw;
+  z-index: 2;
 }
 .space-jam-logo .space > .letter {
   position: relative;
@@ -230,6 +231,7 @@ body {
           mask: linear-gradient(#000 0 0) left bottom/0.16em 50% no-repeat;
 }
 .space-jam-logo .j-j.j-top {
+  z-index: 1;
   clip-path: rect(0% 100% 0.4em 0%);
 }
 .space-jam-logo .j-a {
@@ -386,8 +388,61 @@ body {
     animation: none;
   }
 }
-#reveal-btn {
+.controls {
+  display: flex;
   position: absolute;
   bottom: 0;
   right: 0;
+  background-color: #111;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  color: coral;
+  text-transform: lowercase;
+}
+.controls button {
+  margin: 0;
+  padding: 0.6rem;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-transform: inherit;
+}
+.controls .replay-icon {
+  display: inline-block;
+  color: #ed2224;
+  transform: rotate(0deg);
+  transition: all 0.6s;
+}
+.controls #replay-btn:hover .replay-icon {
+  transform: rotate(-360deg);
+}
+.controls label {
+  display: flex;
+  padding: 0.6rem;
+  align-items: center;
+  cursor: pointer;
+}
+.controls [type=checkbox] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.controls [type=checkbox]:after {
+  content: "";
+  display: block;
+  cursor: pointer;
+  width: 1em;
+  height: 1em;
+  background-color: #000;
+  border: 2px solid #666;
+  border-radius: 50%;
+}
+.controls [type=checkbox]:checked:after {
+  background-color: #fff;
+  border: 2px solid #ed2224;
+  box-shadow: 0px 0px 3px 2px #ed2224;
 }/*# sourceMappingURL=styles.css.map */

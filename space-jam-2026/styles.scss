@@ -245,6 +245,7 @@ $letter-anim-length: .9s;
     top: 16.66cqw;
     display: flex;
     font-size: 22.22cqw;
+    z-index: 2;
 
     & > .letter {
       position: relative;
@@ -331,6 +332,7 @@ $letter-anim-length: .9s;
 
     // Mask for J's upper half (places it on top of rings)
     &.j-top {
+      z-index: 1;
       clip-path: rect(0% 100% .40em 0%);
     }
   }
@@ -464,8 +466,66 @@ $letter-anim-length: .9s;
 
 // ## Controls ##
 
-#reveal-btn {
+.controls {
+  display: flex;
   position: absolute;
   bottom: 0;
   right: 0;
+  background-color: #111;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  color: coral;
+  text-transform: lowercase;
+
+  button {
+    margin: 0;
+    padding: .6rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-transform: inherit;
+  }
+
+  .replay-icon {
+    display: inline-block;
+    color: #ed2224;
+    transform: rotate(0deg);
+    transition: all .6s;
+  }
+
+  #replay-btn:hover .replay-icon {
+    transform: rotate(-360deg);
+  }
+
+  label {
+    display: flex;
+    padding: .6rem;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  [type=checkbox] {
+    appearance: none;
+  }
+
+  [type=checkbox]:after {
+    content: '';
+    display: block;
+    cursor: pointer;
+    width: 1em;
+    height: 1em;
+    background-color: #000;
+    border: 2px solid #666;
+    border-radius: 50%;
+  }
+
+  [type=checkbox]:checked:after {
+    background-color: #fff;
+    border: 2px solid #ed2224;
+    box-shadow: 0px 0px 3px 2px #ed2224;
+  }
 }
