@@ -401,6 +401,7 @@ body {
   .space-jam-logo .letter,
   .space-jam-logo .ring {
     animation: none;
+    transition: none;
   }
 }
 .controls {
