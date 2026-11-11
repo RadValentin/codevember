@@ -230,6 +230,7 @@ $letter-anim-length: .9s;
     text-shadow: .03em .03em #11192f;
     transform: scaleX(var(--scale-x)) translateY(var(--translate-y));
     animation: letterAnim $letter-anim-length forwards ease-in-out;
+    animation-delay: calc(#{$initial-anim-length} + var(--letter-index, 0) * #{$letter-anim-delay});
 
     &:after {
       content: attr(data-text);
@@ -246,11 +247,11 @@ $letter-anim-length: .9s;
       -webkit-text-stroke-width: 0.55cqw;
     }
 
-    $letter-anim-order: '.s-s', '.s-p', '.s-a', '.s-c', '.s-e', '.j-j', '.j-a', '.j-m';
+    $letter-anim-order: '.j-j', '.j-a', '.j-m';
     @each $letter in $letter-anim-order {
       $i: list.index($letter-anim-order, $letter);
       &#{$letter} {
-        animation-delay: ($i - 1) * $letter-anim-delay + $initial-anim-length;
+        --letter-index: calc(var(--space-letter-count, 5) + #{$i - 1});
       }
     }
   }
@@ -266,62 +267,53 @@ $letter-anim-length: .9s;
     z-index: 2;
 
     & > .letter {
+      --reveal-depth: 20cqw;
       position: relative;
-      top: var(--dy, 0cqw);
-      margin-left: var(--kern, -0.1em);
-    }
-  }
+      top: 0.70cqw;
+      margin-left: -0.1em;
+      font-size: 0.87em;
+      white-space: pre;
+      z-index: 2;
 
-  .s-s {
-    --kern: 0;
-    font-size: 1em;
-    z-index: 4;
+      &:after {
+        background-position: 0 0.15em;
+      }
 
-    &:after {
-      background-position: 0.03em 0.087em;
-    }
-  }
+      // Repeat SPACE's silhouette for words of any length.
+      &:nth-child(5n + 1) {
+        --reveal-depth: 30cqw;
+        top: 0;
+        font-size: 1em;
+        z-index: 4;
+      }
 
-  .s-p {
-    --dy: 1.67cqw;
-    font-size: 0.83em;
-    z-index: 3;
+      &:nth-child(5n + 2) {
+        --reveal-depth: 25cqw;
+        top: 1.67cqw;
+        font-size: 0.83em;
+        z-index: 3;
+      }
 
-    &:after {
-      background-position: 0.06em 0.15em;
-    }
-  }
+      &:nth-child(5n + 3) {
+        top: 0.42cqw;
+        margin-left: -0.18em;
+        font-size: 0.96em;
+      }
 
-  .s-a {
-    --dy: 0.42cqw;
-    --kern: -0.18em;
-    font-size: 0.96em;
-    z-index: 2;
+      &:nth-child(5n + 4) {
+        --reveal-depth: 25cqw;
+        top: 2.50cqw;
+        margin-left: -0.18em;
+        z-index: 3;
+      }
 
-    &:after {
-      background-position: -0.129em 0.16em;
-    }
-  }
+      &:nth-child(5n) {
+        margin-left: -0.06em;
+      }
 
-  .s-c {
-    --dy: 2.50cqw;
-    --kern: -0.18em;
-    font-size: 0.87em;
-    z-index: 3;
-
-    &:after {
-      background-position: 0.057em 0.17em;
-    }
-  }
-
-  .s-e {
-    --dy: 0.70cqw;
-    --kern: -0.06em;
-    font-size: 0.87em;
-    z-index: 2;
-
-    &:after {
-      background-position: -0.071em 0.178em;
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
 
@@ -441,11 +433,7 @@ $letter-anim-length: .9s;
 .space-jam-logo.reveal {
   transform: translateX(10%) scale(.82) rotateX(28deg) rotateY(-38deg) rotateZ(-5deg);
 
-  .s-s { --layer-depth: 30cqw; }
-  .s-p { --layer-depth: 25cqw; }
-  .s-a { --layer-depth: 20cqw; }
-  .s-c { --layer-depth: 25cqw; }
-  .s-e { --layer-depth: 20cqw; }
+  .space > .letter { --layer-depth: var(--reveal-depth); }
 
   .j-a { --layer-depth: 15cqw; }
   .j-m { --layer-depth: 5cqw; }
@@ -487,13 +475,16 @@ $letter-anim-length: .9s;
 
 .controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  max-width: calc(100vw - 3rem);
   position: fixed;
   bottom: max(1.5rem, env(safe-area-inset-bottom));
   right: max(1.5rem, env(safe-area-inset-right));
   z-index: 10;
   border: 1px solid #365472;
-  border-radius: 999px;
+  border-radius: 1.25rem;
   background: linear-gradient(135deg, rgba(#17283e, .95), rgba(#080f20, .95));
   box-shadow: 0 8px 28px rgba(#000, .45), inset 0 1px rgba(#fff, .06);
   backdrop-filter: blur(12px);
@@ -530,6 +521,28 @@ $letter-anim-length: .9s;
   label:has([type=checkbox]:focus-visible) {
     border-radius: 999px;
     outline: 2px solid #bcde87;
+  }
+
+  .text-control {
+    cursor: text;
+  }
+
+  [type=text] {
+    width: 8ch;
+    min-width: 0;
+    padding: .125rem .375rem;
+    border: 1px solid #365472;
+    border-radius: .25rem;
+    background-color: rgba(#000, .25);
+    color: inherit;
+    font: inherit;
+    letter-spacing: normal;
+    text-transform: uppercase;
+
+    &:focus-visible {
+      outline: 2px solid #bcde87;
+      outline-offset: 2px;
+    }
   }
 
   .replay-icon {
