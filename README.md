@@ -4,13 +4,9 @@ I’m Valentin Radulescu, and this is an archive of my creative coding experimen
 
 ## Newer projects
 
-### Space Jam 2026
-
-**2026 · Ready**
-
-A CSS-only recreation of the Space Jam logo, with animated lettering and interactive controls.
-
-[View experiment](space-jam-2026/index.html)
+| Day | Title | Experiment | CodePen |
+| --- | --- | --- | --- |
+| 2026 | 🏀 Space Jam | [View experiment](space-jam-2026/index.html) | |
 
 ## Codevember 2017
 

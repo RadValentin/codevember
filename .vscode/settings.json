@@ -6,5 +6,6 @@
         "/codevember-2017/**"
     ],
     "liveSassCompile.settings.showOutputWindowOn": "Warning",
-    "liveServer.settings.fullReload": true
+    "liveServer.settings.fullReload": true,
+    "workbench.browser.openLocalhostLinks": false
 }
