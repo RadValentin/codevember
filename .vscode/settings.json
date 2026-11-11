@@ -4,5 +4,7 @@
         "/**/node_modules/**",
         "/.vscode/**",
         "/codevember-2017/**"
-    ]
+    ],
+    "liveSassCompile.settings.showOutputWindowOn": "Warning",
+    "liveServer.settings.fullReload": true
 }

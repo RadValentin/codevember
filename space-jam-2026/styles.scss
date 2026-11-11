@@ -1,6 +1,582 @@
-$coral: coral;
+@use 'sass:list';
+@use 'sass:math';
+@use 'sass:string';
 
-h1 {
-  color: $coral;
-  font-family: monospace;
+
+// ## Custom functions ##
+
+$global-seed: 42;
+
+@function seeded-random($limit: null) {
+  // Uses a linear congruential generator:
+  // https://en.wikipedia.org/wiki/Linear_congruential_generator
+
+  // LCG constants (Commonly used values)
+  $a: 1103515245;
+  $c: 12345;
+  $m: 2147483648; // 2^31
+
+  // Update the global seed using the formula: (a * seed + c) % m
+  $global-seed: ($a * $global-seed + $c) % $m !global;
+
+  $value: math.div($global-seed, $m);
+
+  @if $limit == null {
+    @return $value;
+  }
+
+  @if $limit < 1 or $limit != math.floor($limit) {
+    @error '$limit must be a positive integer.';
+  }
+
+  @return math.floor($value * $limit) + 1;
+}
+
+
+// ## Background ##
+//
+// NOTES:
+// First attempt for animating the background used `background-position`
+// which resulted in choppy animation.
+//
+// Second attempt uses:
+// - container query units to distribute the stars on a area that's at least 2000px in size
+//   and which scales up on larger displays.
+// - each layer of stars has 2 copies that create an infinite loop effect, also scaled to
+//   container size.
+
+@function get_stars_bg_shadow($num-stars, $blur: 0, $spread: 0) {
+  $stars: ();
+
+  @for $i from 1 through $num-stars {
+    $x-pos: seeded-random() * 100;
+    $y-pos: seeded-random() * 100;
+
+    $stars: list.append(
+      $stars,
+      string.unquote('#{$x-pos}cqw #{$y-pos}cqh #{$blur}px #{$spread}px #fff'),
+      comma
+    );
+  }
+
+  @return $stars;
+}
+
+$sm-stars: get_stars_bg_shadow(300, 0, 0);
+$md-stars: get_stars_bg_shadow(200, 0, 0);
+$lg-stars: get_stars_bg_shadow(100, 0, 0);
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: max(2560px, 100vw);
+  height: max(1440px, 100vh);
+  overflow: hidden;
+  container-type: size;
+
+  .stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+
+    animation-name: background-anim;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform: translate3d(0, 0, 0);
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: -100cqw;
+      width: inherit;
+      height: inherit;
+      box-shadow: inherit;
+    }
+  }
+
+  .stars-lg {
+    width: 3px;
+    height: 3px;
+    box-shadow: $lg-stars;
+    animation-duration: 180s;
+  }
+
+  .stars-md {
+    width: 2px;
+    height: 2px;
+    box-shadow: $md-stars;
+    animation-duration: 120s;
+  }
+
+  .stars-sm {
+    width: 1px;
+    height: 1px;
+    box-shadow: $sm-stars;
+    animation-duration: 60s;
+  }
+}
+
+@keyframes background-anim {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(100cqw, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background {
+    div[class^=stars] {
+      animation-play-state: paused;
+    }
+  }
+}
+
+
+// ## Logo ##
+
+@property --translate-y {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+$ring-diameter: 55cqw;
+$ring-thickness: 4.17cqw;
+
+$initial-anim-length: 1s;
+$letter-anim-delay: .1s;
+$letter-anim-length: .9s;
+
+.visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  perspective: 1100px;
+  // contain the logo's enlarged intro animation.
+  overflow: clip;
+}
+
+.space-jam-logo {
+  position: relative;
+  aspect-ratio: 72 / 46;
+  width: min(720px, 90vmin);
+  margin: 0;
+  container-type: size;
+  transform-style: preserve-3d;
+  z-index: auto;
+  opacity: 1;
+  transform: translateX(0%) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  transition: transform 1.1s cubic-bezier(.2, .75, .25, 1);
+  animation: introAnim $initial-anim-length backwards reverse;
+
+  &:not(.can-animate) {
+    opacity: 0;
+    animation: none;
+    transition: none;
+
+    .letter {
+      animation: none;
+    }
+
+    .letter, .ring {
+      transition: none;
+    }
+  }
+
+  // For each letter the element displays the shadow and the pseudo element displays
+  // the background and stroke.
+  .letter {
+    --translate-y: 0cqw;
+    --scale-x: 1;
+
+    display: inline-block;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 20cqw;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: uppercase;
+    text-shadow: .03em .03em #11192f;
+    transform: scaleX(var(--scale-x)) translateY(var(--translate-y));
+    animation: letterAnim $letter-anim-length forwards ease-in-out;
+
+    &:after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-shadow: none;
+      background: radial-gradient(
+        circle at center, #cede73 0%, #a5cd63 21%, #3ab473 36%, #036ba5 54%
+      );
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-color: white;
+      -webkit-text-stroke-width: 0.55cqw;
+    }
+
+    $letter-anim-order: '.s-s', '.s-p', '.s-a', '.s-c', '.s-e', '.j-j', '.j-a', '.j-m';
+    @each $letter in $letter-anim-order {
+      $i: list.index($letter-anim-order, $letter);
+      &#{$letter} {
+        animation-delay: ($i - 1) * $letter-anim-delay + $initial-anim-length;
+      }
+    }
+  }
+
+  // Individual letter styling
+  // SPACE: letter sizes are relative to this wrapper's font-size.
+  .space {
+    position: absolute;
+    left: 0;
+    top: 16.66cqw;
+    display: flex;
+    font-size: 22.22cqw;
+    z-index: 2;
+
+    & > .letter {
+      position: relative;
+      top: var(--dy, 0cqw);
+      margin-left: var(--kern, -0.1em);
+    }
+  }
+
+  .s-s {
+    --kern: 0;
+    font-size: 1em;
+    z-index: 4;
+
+    &:after {
+      background-position: 0.03em 0.087em;
+    }
+  }
+
+  .s-p {
+    --dy: 1.67cqw;
+    font-size: 0.83em;
+    z-index: 3;
+
+    &:after {
+      background-position: 0.06em 0.15em;
+    }
+  }
+
+  .s-a {
+    --dy: 0.42cqw;
+    --kern: -0.18em;
+    font-size: 0.96em;
+    z-index: 2;
+
+    &:after {
+      background-position: -0.129em 0.16em;
+    }
+  }
+
+  .s-c {
+    --dy: 2.50cqw;
+    --kern: -0.18em;
+    font-size: 0.87em;
+    z-index: 3;
+
+    &:after {
+      background-position: 0.057em 0.17em;
+    }
+  }
+
+  .s-e {
+    --dy: 0.70cqw;
+    --kern: -0.06em;
+    font-size: 0.87em;
+    z-index: 2;
+
+    &:after {
+      background-position: -0.071em 0.178em;
+    }
+  }
+
+  // JAM
+  .j-j {
+    --scale-x: 1.2;
+    position: absolute;
+    top: 2cqw;
+    left: 28cqw;
+    // Fixes issue where gradient BG doesn't cover the letter J's hook properly
+    padding-left: 1.11cqw;
+    font-size: 69.44cqw;
+    font-family: "Boogaloo", sans-serif;
+    font-weight: 400;
+
+    &:after {
+      padding-left: inherit;
+      background-position: -0.04em 0.05em;
+      // background-image: radial-gradient(circle, transparent 45%, black 48%);
+    }
+
+    // Mask for J's lower hook (places it on top of rings)
+    &.j-hook {
+      mask: linear-gradient(#000 0 0) left bottom / .16em 50% no-repeat;
+    }
+
+    // Mask for J's upper half (places it on top of rings)
+    &.j-top {
+      z-index: 1;
+      clip-path: rect(0% 100% .40em 0%);
+    }
+  }
+
+  .j-a {
+    position: absolute;
+    top: 9.72cqw;
+    left: 52cqw;
+    font-size: 38.88cqw;
+    z-index: 3;
+
+    &:after {
+      background-position: 0.035em 0.071em;
+    }
+  }
+
+  .j-m {
+    position: absolute;
+    top: 9.72cqw;
+    left: 70cqw;
+    font-size: 37.5cqw;
+    z-index: 2;
+
+    &:after {
+      background-position: 0.111em 0.092em;
+    }
+  }
+
+  // Rings styling
+  .rings {
+    position: absolute;
+    top: -1.3cqw;
+    left: 25cqw;
+    width: $ring-diameter;
+    height: $ring-diameter;
+    transform: rotate(8deg) skewX(-33deg);
+  }
+
+  .ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
+
+  @for $i from 0 through 3 {
+    .ring-#{$i+1} {
+      $new-diameter: $ring-diameter - 2 * $i * $ring-thickness;
+      // Convert thickness / radius to a percentage for the gradient.
+      $perc-thickness: 100% - calc(100% * $ring-thickness / ($new-diameter / 2));
+
+      width: $new-diameter;
+      height: $new-diameter;
+
+      &:after {
+        width: $new-diameter;
+        height: $new-diameter;
+        background: radial-gradient(
+          circle closest-side,
+          transparent $perc-thickness,
+          #f6eb16 $perc-thickness,
+          #ed2224 88%,
+          #35469d 100%
+        );
+      }
+    }
+  }
+
+  // Logo layer separation for reveal animation
+  .space, .rings {
+    // prevent parent display from flattening children
+    transform-style: preserve-3d;
+  }
+
+  .letter, .ring {
+    translate: 0 0 var(--layer-depth, 0cqw);
+    transition: translate 1.1s cubic-bezier(.2, .75, .25, 1);
+  }
+}
+
+.space-jam-logo.reveal {
+  transform: translateX(10%) scale(.82) rotateX(28deg) rotateY(-38deg) rotateZ(-5deg);
+
+  .s-s { --layer-depth: 30cqw; }
+  .s-p { --layer-depth: 25cqw; }
+  .s-a { --layer-depth: 20cqw; }
+  .s-c { --layer-depth: 25cqw; }
+  .s-e { --layer-depth: 20cqw; }
+
+  .j-a { --layer-depth: 15cqw; }
+  .j-m { --layer-depth: 5cqw; }
+
+  .j-top, .j-hook { --layer-depth: 10cqw; }
+
+  .ring-1 { --layer-depth: -15cqw; }
+  .ring-2 { --layer-depth: -20cqw; }
+  .ring-3 { --layer-depth: -25cqw; }
+  .ring-4 { --layer-depth: -30cqw; }
+
+  .j-back { --layer-depth: -40cqw; }
+}
+
+@keyframes introAnim {
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+@keyframes letterAnim {
+  0%   { --translate-y: 0cqw; }
+  25%  { --translate-y: -1.38cqw; }
+  60%  { --translate-y: 2.77cqw; }
+  100% { --translate-y: 0cqw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .space-jam-logo,
+  .space-jam-logo .letter,
+  .space-jam-logo .ring {
+    animation: none;
+    transition: none;
+  }
+}
+
+// ## Controls ##
+
+.controls {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  right: max(1.5rem, env(safe-area-inset-right));
+  z-index: 10;
+  border: 1px solid #365472;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(#17283e, .95), rgba(#080f20, .95));
+  box-shadow: 0 8px 28px rgba(#000, .45), inset 0 1px rgba(#fff, .06);
+  backdrop-filter: blur(12px);
+  font: 400 1.125rem / 1 'Boogaloo', sans-serif;
+  letter-spacing: .06em;
+  color: #dce8ef;
+  text-transform: uppercase;
+
+  button, label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    margin: 0;
+    padding: .625rem;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    text-transform: inherit;
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  button:focus-visible,
+  label:has([type=checkbox]:focus-visible) {
+    border-radius: 999px;
+    outline: 2px solid #bcde87;
+  }
+
+  .replay-icon {
+    display: inline-block;
+    color: #a5cd63;
+    font-family: system-ui, sans-serif;
+    font-weight: 400;
+    transform: rotate(0deg);
+    transition: transform .55s ease, color .2s;
+  }
+
+  #replay-btn:hover .replay-icon {
+    transform: rotate(-360deg);
+  }
+
+  [type=checkbox] {
+    appearance: none;
+  }
+
+  [type=checkbox]:focus-visible {
+    outline: none;
+  }
+
+  [type=checkbox]:after {
+    content: '';
+    display: block;
+    cursor: pointer;
+    width: 1em;
+    height: 1em;
+    background-color: #000;
+    border: 2px solid #617995;
+    border-radius: 50%;
+    transition: background-color .2s, border-color .2s, box-shadow .2s;
+  }
+
+  [type=checkbox]:checked:after {
+    border-color: #bcde87;
+    background-color: #a5cd63;
+    box-shadow: 0 0 12px rgba(#a5cd63, .15);
+  }
+}
+
+
+// ## Print ##
+
+@media print {
+  .controls {
+    display: none;
+  }
 }

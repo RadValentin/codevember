@@ -1,4 +1,490 @@
-h1 {
-  color: coral;
-  font-family: monospace;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #000;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: max(2560px, 100vw);
+  height: max(1440px, 100vh);
+  overflow: hidden;
+  container-type: size;
+}
+.background .stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  animation-name: background-anim;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform: translate3d(0, 0, 0);
+}
+.background .stars::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -100cqw;
+  width: inherit;
+  height: inherit;
+  box-shadow: inherit;
+}
+.background .stars-lg {
+  width: 3px;
+  height: 3px;
+  box-shadow: 97.3116517067cqw 74.4693756104cqh 0px 0px #fff, 71.6547012329cqw 86.4372253418cqh 0px 0px #fff, 0.1737594604cqw 13.5692622978cqh 0px 0px #fff, 9.0531170368cqw 64.9000734091cqh 0px 0px #fff, 8.5400342941cqw 36.3940984011cqh 0px 0px #fff, 13.6110424995cqw 98.5883384943cqh 0px 0px #fff, 7.6818943024cqw 73.1424838305cqh 0px 0px #fff, 64.0703082085cqw 59.890973568cqh 0px 0px #fff, 70.1393961906cqw 71.4703917503cqh 0px 0px #fff, 62.6182436943cqw 31.7917227745cqh 0px 0px #fff, 46.4812159538cqw 11.1857771873cqh 0px 0px #fff, 53.4116655588cqw 4.9943685532cqh 0px 0px #fff, 37.5630170107cqw 19.489967823cqh 0px 0px #fff, 17.2720581293cqw 58.2210123539cqh 0px 0px #fff, 11.8593454361cqw 84.4538956881cqh 0px 0px #fff, 91.4111733437cqw 48.0652928352cqh 0px 0px #fff, 99.0723252296cqw 48.5116958618cqh 0px 0px #fff, 44.3183898926cqw 80.3144454956cqh 0px 0px #fff, 98.1227874756cqw 61.2047195435cqh 0px 0px #fff, 82.1548461914cqw 22.8475570679cqh 0px 0px #fff, 35.4038268328cqw 41.3037657738cqh 0px 0px #fff, 7.268512249cqw 75.2334982157cqh 0px 0px #fff, 15.6786203384cqw 64.0361100435cqh 0px 0px #fff, 63.5287880898cqw 53.4165501595cqh 0px 0px #fff, 36.2656235695cqw 78.3624768257cqh 0px 0px #fff, 13.1353020668cqw 78.3976703882cqh 0px 0px #fff, 45.8883285522cqw 24.9729156494cqh 0px 0px #fff, 31.2280654907cqw 40.8714294434cqh 0px 0px #fff, 75.6895065308cqw 43.2231903076cqh 0px 0px #fff, 41.9923782349cqw 55.9783935547cqh 0px 0px #fff, 78.2079696655cqw 6.4075469971cqh 0px 0px #fff, 94.3216353655cqw 59.1456770897cqh 0px 0px #fff, 44.3220019341cqw 23.1459021568cqh 0px 0px #fff, 89.3406778574cqw 14.2742872238cqh 0px 0px #fff, 62.990167737cqw 82.8951001167cqh 0px 0px #fff, 14.6131157875cqw 48.4637409449cqh 0px 0px #fff, 62.3868942261cqw 66.6759490967cqh 0px 0px #fff, 3.0305862427cqw 20.080569014cqh 0px 0px #fff, 35.1725578308cqw 71.9441413879cqh 0px 0px #fff, 10.027217865cqw 78.9536505938cqh 0px 0px #fff, 78.6154150963cqw 50.7519602776cqh 0px 0px #fff, 79.919564724cqw 46.6640353203cqh 0px 0px #fff, 69.150197506cqw 42.5783991814cqh 0px 0px #fff, 4.3334364891cqw 28.9674669504cqh 0px 0px #fff, 88.8189077377cqw 32.8362226486cqh 0px 0px #fff, 80.9676885605cqw 78.9088010788cqh 0px 0px #fff, 55.1248311996cqw 6.8615674973cqh 0px 0px #fff, 37.8162175417cqw 65.4970288277cqh 0px 0px #fff, 13.5358452797cqw 20.1037555933cqh 0px 0px #fff, 78.9609968662cqw 2.2783994675cqh 0px 0px #fff, 46.5516831726cqw 61.3565206528cqh 0px 0px #fff, 20.4907178879cqw 70.2686101198cqh 0px 0px #fff, 12.1828198433cqw 24.1620689631cqh 0px 0px #fff, 51.4685213566cqw 54.5975923538cqh 0px 0px #fff, 2.7372598648cqw 90.341880545cqh 0px 0px #fff, 43.3991670609cqw 71.9526529312cqh 0px 0px #fff, 27.7884721756cqw 81.0314416885cqh 0px 0px #fff, 27.6303529739cqw 31.4722299576cqh 0px 0px #fff, 52.3364305496cqw 80.3917169571cqh 0px 0px #fff, 33.8769197464cqw 93.7933206558cqh 0px 0px #fff, 22.874379158cqw 20.7859307528cqh 0px 0px #fff, 67.1791732311cqw 7.0427894592cqh 0px 0px #fff, 35.5845481157cqw 32.1449637413cqh 0px 0px #fff, 38.5001063347cqw 74.447953701cqh 0px 0px #fff, 68.1295275688cqw 6.8380713463cqh 0px 0px #fff, 77.0214945078cqw 82.0301771164cqh 0px 0px #fff, 97.9915380478cqw 16.734957695cqh 0px 0px #fff, 40.8712178469cqw 75.7381558418cqh 0px 0px #fff, 99.6429085732cqw 66.613483429cqh 0px 0px #fff, 86.4073753357cqw 63.3751869202cqh 0px 0px #fff, 21.1283683777cqw 6.7524939775cqh 0px 0px #fff, 45.9940373898cqw 38.6954963207cqh 0px 0px #fff, 2.7614533901cqw 14.3565382808cqh 0px 0px #fff, 58.338779211cqw 34.0770483017cqh 0px 0px #fff, 5.5243253708cqw 65.006044507cqh 0px 0px #fff, 30.6530117989cqw 25.2059578896cqh 0px 0px #fff, 95.9546208382cqw 23.110640049cqh 0px 0px #fff, 15.7583385706cqw 48.5234320164cqh 0px 0px #fff, 69.7889149189cqw 45.0141429901cqh 0px 0px #fff, 30.1993846893cqw 94.2969799042cqh 0px 0px #fff, 81.7161083221cqw 95.5573558807cqh 0px 0px #fff, 86.2845897675cqw 16.9593334198cqh 0px 0px #fff, 73.7876445055cqw 4.4611811638cqh 0px 0px #fff, 24.9473005533cqw 82.1881532669cqh 0px 0px #fff, 88.4287118912cqw 67.6242113113cqh 0px 0px #fff, 13.1660699844cqw 44.5626527071cqh 0px 0px #fff, 19.9258446693cqw 62.121501565cqh 0px 0px #fff, 19.2468643188cqw 94.2955046892cqh 0px 0px #fff, 59.5200896263cqw 86.4024996758cqh 0px 0px #fff, 98.299062252cqw 64.3359184265cqh 0px 0px #fff, 84.7348213196cqw 8.5082054138cqh 0px 0px #fff, 81.740668416cqw 33.5722327232cqh 0px 0px #fff, 18.7794566154cqw 67.9635435343cqh 0px 0px #fff, 94.2984819412cqw 2.4975061417cqh 0px 0px #fff, 1.8063809723cqw 41.1742456257cqh 0px 0px #fff, 49.3729710579cqw 53.3280014992cqh 0px 0px #fff, 39.7241711617cqw 71.872484684cqh 0px 0px #fff, 44.8130726814cqw 79.2482972145cqh 0px 0px #fff, 16.5012478828cqw 0.2418190241cqh 0px 0px #fff, 79.6104964335cqw 76.3327360153cqh 0px 0px #fff;
+  animation-duration: 180s;
+}
+.background .stars-md {
+  width: 2px;
+  height: 2px;
+  box-shadow: 0.4826545715cqw 77.7564074844cqh 0px 0px #fff, 55.4815292358cqw 27.6630401611cqh 0px 0px #fff, 40.8578872681cqw 78.8032531738cqh 0px 0px #fff, 32.9145431519cqw 50.2834320068cqh 0px 0px #fff, 90.4649734497cqw 40.2725219727cqh 0px 0px #fff, 51.4242172241cqw 69.0097808838cqh 0px 0px #fff, 59.3713760376cqw 74.1172790527cqh 0px 0px #fff, 52.6121139526cqw 18.412399292cqh 0px 0px #fff, 15.741160512cqw 98.952049017cqh 0px 0px #fff, 14.1949415207cqw 69.9664860964cqh 0px 0px #fff, 46.4388012886cqw 81.5015435219cqh 0px 0px #fff, 67.4273610115cqw 6.315100193cqh 0px 0px #fff, 36.7046505213cqw 12.6284599304cqh 0px 0px #fff, 54.0905982256cqw 53.1130194664cqh 0px 0px #fff, 89.1548991203cqw 45.7227110863cqh 0px 0px #fff, 26.4335513115cqw 51.7227530479cqh 0px 0px #fff, 1.7760157585cqw 64.881458506cqh 0px 0px #fff, 79.1933894157cqw 23.492372036cqh 0px 0px #fff, 82.9164415598cqw 22.3821401596cqh 0px 0px #fff, 81.8535596132cqw 90.7137989998cqh 0px 0px #fff, 28.1305909157cqw 26.3118863106cqh 0px 0px #fff, 68.4295296669cqw 95.6051945686cqh 0px 0px #fff, 7.6794266701cqw 3.2873302698cqh 0px 0px #fff, 68.0897772312cqw 3.3017873764cqh 0px 0px #fff, 5.6107312441cqw 63.4486377239cqh 0px 0px #fff, 2.8314113617cqw 2.4964835495cqh 0px 0px #fff, 55.7386882603cqw 31.5627455711cqh 0px 0px #fff, 11.8059039116cqw 47.4459081888cqh 0px 0px #fff, 99.2336511612cqw 73.3899354935cqh 0px 0px #fff, 46.6104745865cqw 82.8738451004cqh 0px 0px #fff, 80.0636529922cqw 47.3366975784cqh 0px 0px #fff, 25.7528543472cqw 74.4323015213cqh 0px 0px #fff, 49.1932153702cqw 11.5605592728cqh 0px 0px #fff, 98.2240945101cqw 18.1929349899cqh 0px 0px #fff, 12.6813679934cqw 8.1226527691cqh 0px 0px #fff, 60.5314701796cqw 45.4054951668cqh 0px 0px #fff, 23.3145356178cqw 84.369674325cqh 0px 0px #fff, 33.3113670349cqw 54.816532135cqh 0px 0px #fff, 89.0162467957cqw 91.6874885559cqh 0px 0px #fff, 97.2083091736cqw 13.7238502502cqh 0px 0px #fff, 71.2420493364cqw 27.7969717979cqh 0px 0px #fff, 43.8658595085cqw 2.6744246483cqh 0px 0px #fff, 70.9867384285cqw 48.6483931541cqh 0px 0px #fff, 90.3524279594cqw 76.0092139244cqh 0px 0px #fff, 26.0510325432cqw 59.3934416771cqh 0px 0px #fff, 43.6916232109cqw 92.0322775841cqh 0px 0px #fff, 46.100127697cqw 10.0768446922cqh 0px 0px #fff, 39.373961091cqw 20.0017690659cqh 0px 0px #fff, 91.1431103945cqw 97.024834156cqh 0px 0px #fff, 34.7834229469cqw 95.2205777168cqh 0px 0px #fff, 48.2268929482cqw 87.2677922249cqh 0px 0px #fff, 17.6525712013cqw 34.1100841761cqh 0px 0px #fff, 96.519947052cqw 18.4775352478cqh 0px 0px #fff, 35.9757453203cqw 11.2112402916cqh 0px 0px #fff, 77.1344095469cqw 49.0254163742cqh 0px 0px #fff, 61.4101171494cqw 71.5475797653cqh 0px 0px #fff, 13.8845205307cqw 75.1442700624cqh 0px 0px #fff, 88.3074879646cqw 16.6239380836cqh 0px 0px #fff, 7.2429805994cqw 10.6814444065cqh 0px 0px #fff, 41.203674674cqw 52.8176307678cqh 0px 0px #fff, 57.0734977722cqw 77.1153450012cqh 0px 0px #fff, 32.2821617126cqw 91.4612770081cqh 0px 0px #fff, 5.5590629578cqw 21.8075782061cqh 0px 0px #fff, 6.920093298cqw 51.1199682951cqh 0px 0px #fff, 37.5571608543cqw 61.6815447807cqh 0px 0px #fff, 0.6876349449cqw 44.7098638862cqh 0px 0px #fff, 0.3382086754cqw 29.2786505539cqh 0px 0px #fff, 39.2536342144cqw 77.2459447384cqh 0px 0px #fff, 33.2393407822cqw 86.8704557419cqh 0px 0px #fff, 51.265501976cqw 73.1087446213cqh 0px 0px #fff, 32.39133358cqw 11.4298582077cqh 0px 0px #fff, 80.3888112307cqw 20.4605221748cqh 0px 0px #fff, 40.5917793512cqw 35.7639789581cqh 0px 0px #fff, 2.1561145782cqw 7.0629622787cqh 0px 0px #fff, 49.4321361184cqw 99.583363533cqh 0px 0px #fff, 7.0652246475cqw 7.8908234835cqh 0px 0px #fff, 9.6105277538cqw 88.8475388288cqh 0px 0px #fff, 78.3657670021cqw 72.942173481cqh 0px 0px #fff, 39.7050499916cqw 69.2267537117cqh 0px 0px #fff, 82.7223420143cqw 14.8986935616cqh 0px 0px #fff, 75.7587105036cqw 82.2407245636cqh 0px 0px #fff, 15.7776355743cqw 86.3400012255cqh 0px 0px #fff, 5.6270480156cqw 69.5560842752cqh 0px 0px #fff, 80.2389383316cqw 91.5404558182cqh 0px 0px #fff, 29.6070337296cqw 79.7917604446cqh 0px 0px #fff, 76.0500192642cqw 40.6123399734cqh 0px 0px #fff, 95.8252191544cqw 92.3005342484cqh 0px 0px #fff, 64.7016763687cqw 49.9320268631cqh 0px 0px #fff, 57.178902626cqw 40.2035951614cqh 0px 0px #fff, 64.4556283951cqw 60.0268602371cqh 0px 0px #fff, 81.1485528946cqw 28.8720369339cqh 0px 0px #fff, 10.7610940933cqw 84.8616868258cqh 0px 0px #fff, 28.6338448524cqw 17.6411747932cqh 0px 0px #fff, 24.0543991327cqw 52.2813379765cqh 0px 0px #fff, 86.016869545cqw 70.0654268265cqh 0px 0px #fff, 50.4499673843cqw 18.3707475662cqh 0px 0px #fff, 1.3744622469cqw 43.1259807199cqh 0px 0px #fff, 80.0127506256cqw 9.7448825836cqh 0px 0px #fff, 91.7582064867cqw 11.9340777397cqh 0px 0px #fff, 20.7918554544cqw 65.8169090748cqh 0px 0px #fff, 42.8028106689cqw 2.0303726196cqh 0px 0px #fff, 38.7916591018cqw 97.7282524109cqh 0px 0px #fff, 2.6242256165cqw 74.0782763809cqh 0px 0px #fff, 9.6433639526cqw 34.8186522722cqh 0px 0px #fff, 92.7541136742cqw 75.9033083916cqh 0px 0px #fff, 56.0356497765cqw 91.8036341667cqh 0px 0px #fff, 49.3762373924cqw 3.2811999321cqh 0px 0px #fff, 46.9641119242cqw 76.2100458145cqh 0px 0px #fff, 78.4653902054cqw 96.5147256851cqh 0px 0px #fff, 60.5231523514cqw 95.2053308487cqh 0px 0px #fff, 96.803021431cqw 11.136841774cqh 0px 0px #fff, 78.7478715181cqw 31.5639138222cqh 0px 0px #fff, 94.6358799934cqw 96.7507004738cqh 0px 0px #fff, 37.2514843941cqw 27.740252018cqh 0px 0px #fff, 1.9778370857cqw 76.2232448906cqh 0px 0px #fff, 60.113632679cqw 93.5913681984cqh 0px 0px #fff, 7.3373913765cqw 42.4947410822cqh 0px 0px #fff, 16.5266513824cqw 49.330380559cqh 0px 0px #fff, 88.4729266167cqw 91.2607550621cqh 0px 0px #fff, 81.242454052cqw 87.5630736351cqh 0px 0px #fff, 55.3924441338cqw 59.4139456749cqh 0px 0px #fff, 17.8503870964cqw 90.0348097086cqh 0px 0px #fff, 94.1094636917cqw 82.5781106949cqh 0px 0px #fff, 55.1039934158cqw 94.7513818741cqh 0px 0px #fff, 82.8694581985cqw 66.98782444cqh 0px 0px #fff, 98.9268541336cqw 76.3260126114cqh 0px 0px #fff, 6.7307710648cqw 80.5662423372cqh 0px 0px #fff, 51.4948487282cqw 10.5159878731cqh 0px 0px #fff, 34.1766029596cqw 88.2675647736cqh 0px 0px #fff, 66.6485309601cqw 71.3066577911cqh 0px 0px #fff, 42.5190448761cqw 23.6145496368cqh 0px 0px #fff, 28.063634038cqw 91.0030245781cqh 0px 0px #fff, 63.0375266075cqw 18.4847712517cqh 0px 0px #fff, 76.5654951334cqw 20.6807374954cqh 0px 0px #fff, 4.0422707796cqw 29.7178924084cqh 0px 0px #fff, 21.9077050686cqw 26.1514872313cqh 0px 0px #fff, 39.112842083cqw 13.8435721397cqh 0px 0px #fff, 1.4609247446cqw 27.4710472673cqh 0px 0px #fff, 55.6013226509cqw 87.4429345131cqh 0px 0px #fff, 2.7342915535cqw 13.5595943779cqh 0px 0px #fff, 12.0022892952cqw 12.1502548456cqh 0px 0px #fff, 52.7764856815cqw 27.0973443985cqh 0px 0px #fff, 42.7590608597cqw 20.5404520035cqh 0px 0px #fff, 25.0304490328cqw 96.8726754189cqh 0px 0px #fff, 48.6424565315cqw 36.7878556252cqh 0px 0px #fff, 13.2154583931cqw 6.4462333918cqh 0px 0px #fff, 20.6377565861cqw 15.3333038092cqh 0px 0px #fff, 9.6317768097cqw 45.9335833788cqh 0px 0px #fff, 15.9759402275cqw 94.2650228739cqh 0px 0px #fff, 11.5991830826cqw 61.1743241549cqh 0px 0px #fff, 7.4535012245cqw 29.8821598291cqh 0px 0px #fff, 24.9828338623cqw 30.3560256958cqh 0px 0px #fff, 32.9284667969cqw 4.828453064cqh 0px 0px #fff, 65.852740407cqw 64.1415953636cqh 0px 0px #fff, 22.373187542cqw 31.7993551493cqh 0px 0px #fff, 88.3882761002cqw 55.7948350906cqh 0px 0px #fff, 14.7796869278cqw 41.1500245333cqh 0px 0px #fff, 4.5899987221cqw 64.342418313cqh 0px 0px #fff, 8.592414856cqw 84.9136382341cqh 0px 0px #fff, 99.7872710228cqw 30.6034088135cqh 0px 0px #fff, 74.6393203735cqw 8.6357116699cqh 0px 0px #fff, 79.1837722063cqw 86.2670302391cqh 0px 0px #fff, 9.7291827202cqw 53.1145483255cqh 0px 0px #fff, 8.5216760635cqw 49.0659028292cqh 0px 0px #fff, 81.678545475cqw 21.0955739021cqh 0px 0px #fff, 3.0253082514cqw 76.223712787cqh 0px 0px #fff, 90.991961956cqw 90.9332633018cqh 0px 0px #fff, 31.1903834343cqw 17.1412825584cqh 0px 0px #fff, 22.093001008cqw 20.1661884785cqh 0px 0px #fff, 19.535407424cqw 9.6410512924cqh 0px 0px #fff, 79.0123730898cqw 48.2119679451cqh 0px 0px #fff, 18.8685059547cqw 71.4321285486cqh 0px 0px #fff, 36.2048149109cqw 96.5695381165cqh 0px 0px #fff, 14.1173362732cqw 96.2609320879cqh 0px 0px #fff, 56.9059729576cqw 90.2821421623cqh 0px 0px #fff, 27.3812651634cqw 35.2237582207cqh 0px 0px #fff, 82.7068686485cqw 19.8649287224cqh 0px 0px #fff, 85.98703444cqw 76.9253969193cqh 0px 0px #fff, 28.0695199966cqw 36.1285448074cqh 0px 0px #fff, 74.6696710587cqw 52.3614168167cqh 0px 0px #fff, 7.0410013199cqw 96.5590745211cqh 0px 0px #fff, 77.0866036415cqw 3.6793828011cqh 0px 0px #fff, 13.1565719843cqw 56.6056787968cqh 0px 0px #fff, 5.807518959cqw 6.9337159395cqh 0px 0px #fff, 43.7623679638cqw 5.3434312344cqh 0px 0px #fff, 27.7257174253cqw 57.432448864cqh 0px 0px #fff, 79.0889143944cqw 44.697368145cqh 0px 0px #fff, 59.373319149cqw 27.1916270256cqh 0px 0px #fff, 59.1088652611cqw 30.2509188652cqh 0px 0px #fff, 43.0111289024cqw 48.4980463982cqh 0px 0px #fff, 53.09060812cqw 26.7022967339cqh 0px 0px #fff, 22.3245978355cqw 50.0138193369cqh 0px 0px #fff, 98.9357709885cqw 61.5997076035cqh 0px 0px #fff, 27.9551267624cqw 58.2055807114cqh 0px 0px #fff, 59.0695142746cqw 16.7636632919cqh 0px 0px #fff, 4.6934872866cqw 72.9417026043cqh 0px 0px #fff, 20.0950145721cqw 28.858140111cqh 0px 0px #fff, 54.8014521599cqw 6.5680861473cqh 0px 0px #fff, 94.0286546946cqw 22.2852468491cqh 0px 0px #fff, 36.5265637636cqw 60.6181263924cqh 0px 0px #fff;
+  animation-duration: 120s;
+}
+.background .stars-sm {
+  width: 1px;
+  height: 1px;
+  box-shadow: 58.2307589706cqw 51.9818663597cqh 0px 0px #fff, 91.4939761162cqw 69.8715567589cqh 0px 0px #fff, 75.3081202507cqw 68.9433455467cqh 0px 0px #fff, 52.1116137505cqw 15.1823401451cqh 0px 0px #fff, 4.9061685801cqw 22.6315319538cqh 0px 0px #fff, 28.7363618612cqw 99.7032880783cqh 0px 0px #fff, 71.0403203964cqw 67.138171196cqh 0px 0px #fff, 36.1886739731cqw 25.6329298019cqh 0px 0px #fff, 10.4572057724cqw 89.9458676577cqh 0px 0px #fff, 84.982407093cqw 83.9752793312cqh 0px 0px #fff, 45.1212048531cqw 28.1179070473cqh 0px 0px #fff, 84.1578602791cqw 4.548895359cqh 0px 0px #fff, 76.610198617cqw 96.3175773621cqh 0px 0px #fff, 80.5012702942cqw 11.5042686462cqh 0px 0px #fff, 33.70218575cqw 64.9557471275cqh 0px 0px #fff, 5.5981516838cqw 26.9044309855cqh 0px 0px #fff, 50.495839119cqw 76.8375635147cqh 0px 0px #fff, 27.1382570267cqw 51.6618967056cqh 0px 0px #fff, 0.2757310867cqw 57.7286031563cqh 0px 0px #fff, 55.5145263672cqw 65.146446228cqh 0px 0px #fff, 70.2014923096cqw 85.3616714478cqh 0px 0px #fff, 81.2782287598cqw 22.999382019cqh 0px 0px #fff, 83.5933715105cqw 42.7922606468cqh 0px 0px #fff, 91.7800784111cqw 13.9473319054cqh 0px 0px #fff, 84.6457391977cqw 28.99081707cqh 0px 0px #fff, 1.7598867416cqw 48.8716866821cqh 0px 0px #fff, 2.5669813156cqw 15.4094483703cqh 0px 0px #fff, 93.7083959579cqw 24.091219902cqh 0px 0px #fff, 32.5475484133cqw 61.4269375801cqh 0px 0px #fff, 73.3138680458cqw 58.4668278694cqh 0px 0px #fff, 80.6912064552cqw 60.7900738716cqh 0px 0px #fff, 62.0011925697cqw 8.8812947273cqh 0px 0px #fff, 26.9423156977cqw 7.9822063446cqh 0px 0px #fff, 90.0073558092cqw 97.6050257683cqh 0px 0px #fff, 23.9154338837cqw 81.416657567cqh 0px 0px #fff, 22.1564173698cqw 42.2046095133cqh 0px 0px #fff, 7.1801424026cqw 2.5945931673cqh 0px 0px #fff, 14.6944697946cqw 35.5679064989cqh 0px 0px #fff, 54.2812228203cqw 99.423635006cqh 0px 0px #fff, 42.3830986023cqw 37.9712104797cqh 0px 0px #fff, 35.4933738708cqw 62.9677772522cqh 0px 0px #fff, 41.5644645691cqw 2.2557258606cqh 0px 0px #fff, 75.7086779922cqw 43.2165145874cqh 0px 0px #fff, 82.9639434814cqw 17.0938491821cqh 0px 0px #fff, 68.2106047869cqw 52.9847502708cqh 0px 0px #fff, 76.3942599297cqw 62.8696799278cqh 0px 0px #fff, 48.6269831657cqw 41.754090786cqh 0px 0px #fff, 23.4437823296cqw 1.1309057474cqh 0px 0px #fff, 32.9296406358cqw 54.0303826332cqh 0px 0px #fff, 28.9301991463cqw 98.7963318825cqh 0px 0px #fff, 82.3932647705cqw 59.5773696899cqh 0px 0px #fff, 9.8518371582cqw 95.335200429cqh 0px 0px #fff, 58.4914565086cqw 59.5353960991cqh 0px 0px #fff, 12.4605536461cqw 9.5986276865cqh 0px 0px #fff, 83.1330120564cqw 66.9523715973cqh 0px 0px #fff, 46.5151309967cqw 78.0355930328cqh 0px 0px #fff, 64.3518924713cqw 86.6957187653cqh 0px 0px #fff, 33.6962223053cqw 12.8057956696cqh 0px 0px #fff, 45.7102328539cqw 6.7674517632cqh 0px 0px #fff, 90.4421240091cqw 34.2586755753cqh 0px 0px #fff, 70.8050966263cqw 50.800538063cqh 0px 0px #fff, 6.7782640457cqw 9.0828210115cqh 0px 0px #fff, 53.8448989391cqw 44.8178291321cqh 0px 0px #fff, 95.0560569763cqw 2.9564857483cqh 0px 0px #fff, 94.864943251cqw 93.5541152954cqh 0px 0px #fff, 60.9733581543cqw 62.1122360229cqh 0px 0px #fff, 52.3632049561cqw 46.0664749146cqh 0px 0px #fff, 51.6174316406cqw 23.1756210327cqh 0px 0px #fff, 21.9440490007cqw 9.3442380428cqh 0px 0px #fff, 33.1740111113cqw 99.074780941cqh 0px 0px #fff, 63.4400367737cqw 23.1188774109cqh 0px 0px #fff, 70.2023535967cqw 28.8256049156cqh 0px 0px #fff, 70.7329630852cqw 88.5129332542cqh 0px 0px #fff, 25.7240176201cqw 6.4148306847cqh 0px 0px #fff, 54.6187311411cqw 76.7500638962cqh 0px 0px #fff, 64.1584157944cqw 24.1394758224cqh 0px 0px #fff, 76.381662488cqw 93.9352154732cqh 0px 0px #fff, 17.00912714cqw 3.1836658716cqh 0px 0px #fff, 24.3196547031cqw 18.0518001318cqh 0px 0px #fff, 45.1324462891cqw 24.1247177124cqh 0px 0px #fff, 76.9580870867cqw 26.1868834496cqh 0px 0px #fff, 5.6220889091cqw 19.9921041727cqh 0px 0px #fff, 34.2104256153cqw 4.4344007969cqh 0px 0px #fff, 81.8091243505cqw 0.9307861328cqh 0px 0px #fff, 87.3937632889cqw 7.1740150452cqh 0px 0px #fff, 70.2006369829cqw 19.3611502647cqh 0px 0px #fff, 77.8769403696cqw 31.8167448044cqh 0px 0px #fff, 37.9110097885cqw 54.9690961838cqh 0px 0px #fff, 42.6696538925cqw 69.2667722702cqh 0px 0px #fff, 72.1124410629cqw 67.1047925949cqh 0px 0px #fff, 41.046500206cqw 31.2102079391cqh 0px 0px #fff, 60.470366478cqw 79.1733503342cqh 0px 0px #fff, 91.4802312851cqw 39.2290830612cqh 0px 0px #fff, 5.4261922836cqw 7.2880536318cqh 0px 0px #fff, 89.0502154827cqw 55.7080745697cqh 0px 0px #fff, 57.2637081146cqw 89.7183895111cqh 0px 0px #fff, 82.3567867279cqw 83.4577083588cqh 0px 0px #fff, 86.6612911224cqw 4.9924373627cqh 0px 0px #fff, 39.4155055285cqw 40.0269389153cqh 0px 0px #fff, 3.6656737328cqw 47.2946077585cqh 0px 0px #fff, 67.8249120712cqw 61.3852262497cqh 0px 0px #fff, 84.3129873276cqw 67.4721479416cqh 0px 0px #fff, 66.4397954941cqw 2.3997068405cqh 0px 0px #fff, 82.0398118347cqw 56.5156698227cqh 0px 0px #fff, 30.7286024094cqw 16.2761449814cqh 0px 0px #fff, 16.788366437cqw 1.8304049969cqh 0px 0px #fff, 18.5729470104cqw 70.5518424511cqh 0px 0px #fff, 7.622718811cqw 16.3261443377cqh 0px 0px #fff, 68.6723172665cqw 13.0205869675cqh 0px 0px #fff, 17.4501210451cqw 0.3776729107cqh 0px 0px #fff, 14.5708527882cqw 84.3916416168cqh 0px 0px #fff, 74.7393131256cqw 34.9401950836cqh 0px 0px #fff, 38.0472660065cqw 68.7101840973cqh 0px 0px #fff, 38.1166934967cqw 62.6059055328cqh 0px 0px #fff, 82.5159549713cqw 66.5785312653cqh 0px 0px #fff, 40.9227848053cqw 0.5011081696cqh 0px 0px #fff, 4.4992949814cqw 3.6838069558cqh 0px 0px #fff, 35.3787645698cqw 51.9959032536cqh 0px 0px #fff, 17.8439378738cqw 74.6162682772cqh 0px 0px #fff, 68.8656449318cqw 38.9913678169cqh 0px 0px #fff, 9.3797326088cqw 27.8296619654cqh 0px 0px #fff, 41.9832229614cqw 72.16796875cqh 0px 0px #fff, 16.3091659546cqw 64.1254454851cqh 0px 0px #fff, 85.2414488792cqw 44.1322207451cqh 0px 0px #fff, 87.9089713097cqw 12.4800562859cqh 0px 0px #fff, 69.903126359cqw 10.3028535843cqh 0px 0px #fff, 97.2669869661cqw 52.344763279cqh 0px 0px #fff, 74.2504239082cqw 30.4488778114cqh 0px 0px #fff, 58.0578923225cqw 70.4922318459cqh 0px 0px #fff, 95.9768414497cqw 6.7338585854cqh 0px 0px #fff, 6.6168934107cqw 53.228956461cqh 0px 0px #fff, 30.1031827927cqw 34.7265005112cqh 0px 0px #fff, 19.5763349533cqw 62.2024327517cqh 0px 0px #fff, 17.5397992134cqw 26.2368828058cqh 0px 0px #fff, 57.5060367584cqw 42.4505710602cqh 0px 0px #fff, 23.8657474518cqw 46.3621646166cqh 0px 0px #fff, 45.6014513969cqw 10.6527686119cqh 0px 0px #fff, 64.6984964609cqw 73.198390007cqh 0px 0px #fff, 82.2017431259cqw 5.0223112106cqh 0px 0px #fff, 86.06775105cqw 86.5352749825cqh 0px 0px #fff, 73.4038949013cqw 65.9360051155cqh 0px 0px #fff, 39.3627762794cqw 9.8974347115cqh 0px 0px #fff, 90.4847770929cqw 62.4796390533cqh 0px 0px #fff, 97.4638462067cqw 25.3908634186cqh 0px 0px #fff, 66.1154270172cqw 43.1787967682cqh 0px 0px #fff, 94.4532871246cqw 82.3961734772cqh 0px 0px #fff, 61.7254734039cqw 6.0801029205cqh 0px 0px #fff, 63.9769107103cqw 96.8587756157cqh 0px 0px #fff, 3.9511084557cqw 15.4675394297cqh 0px 0px #fff, 63.2740795612cqw 9.1646671295cqh 0px 0px #fff, 92.7725344896cqw 26.5973925591cqh 0px 0px #fff, 66.1634802818cqw 53.2566905022cqh 0px 0px #fff, 67.3882842064cqw 56.1450839043cqh 0px 0px #fff, 20.1626181602cqw 18.94787848cqh 0px 0px #fff, 63.0411922932cqw 58.4869861603cqh 0px 0px #fff, 61.9717121124cqw 74.8146533966cqh 0px 0px #fff, 72.5468158722cqw 91.1728382111cqh 0px 0px #fff, 95.8233356476cqw 13.8603687286cqh 0px 0px #fff, 93.3735400438cqw 17.9859042168cqh 0px 0px #fff, 98.312035203cqw 13.4657144547cqh 0px 0px #fff, 85.5246812105cqw 39.5721077919cqh 0px 0px #fff, 25.1462101936cqw 2.6501297951cqh 0px 0px #fff, 30.0939705223cqw 53.9221405983cqh 0px 0px #fff, 93.2548642159cqw 32.5969338417cqh 0px 0px #fff, 34.5788121223cqw 30.9990525246cqh 0px 0px #fff, 41.4156079292cqw 30.84846735cqh 0px 0px #fff, 5.6170582771cqw 40.8671051264cqh 0px 0px #fff, 25.9795665741cqw 73.0086803436cqh 0px 0px #fff, 76.5258312225cqw 90.3640270233cqh 0px 0px #fff, 19.8211193085cqw 29.8629313707cqh 0px 0px #fff, 27.9955744743cqw 24.9617934227cqh 0px 0px #fff, 84.4896197319cqw 18.4084296227cqh 0px 0px #fff, 25.1046091318cqw 96.7224836349cqh 0px 0px #fff, 25.4295110703cqw 38.9193296432cqh 0px 0px #fff, 86.506819725cqw 63.0451917648cqh 0px 0px #fff, 36.4406347275cqw 59.2489957809cqh 0px 0px #fff, 95.2138662338cqw 24.4179487228cqh 0px 0px #fff, 67.2820806503cqw 12.9587888718cqh 0px 0px #fff, 76.7297536135cqw 57.5607419014cqh 0px 0px #fff, 1.7032265663cqw 81.6178467125cqh 0px 0px #fff, 11.2844109535cqw 18.0567890406cqh 0px 0px #fff, 82.0135176182cqw 87.7375364304cqh 0px 0px #fff, 9.64448452cqw 97.9412823915cqh 0px 0px #fff, 33.9240312576cqw 64.6511316299cqh 0px 0px #fff, 60.1453065872cqw 34.1959238052cqh 0px 0px #fff, 35.9378099442cqw 45.285820961cqh 0px 0px #fff, 12.8030061722cqw 92.8304940462cqh 0px 0px #fff, 80.8764100075cqw 4.1217923164cqh 0px 0px #fff, 57.9124122858cqw 32.1114063263cqh 0px 0px #fff, 19.4553852081cqw 74.5193988085cqh 0px 0px #fff, 33.3923220634cqw 62.9631400108cqh 0px 0px #fff, 75.0250697136cqw 86.1377120018cqh 0px 0px #fff, 63.406932354cqw 91.2939429283cqh 0px 0px #fff, 97.555243969cqw 49.4462490082cqh 0px 0px #fff, 88.5919094086cqw 16.0157680511cqh 0px 0px #fff, 4.8257380724cqw 31.2657296658cqh 0px 0px #fff, 32.2113215923cqw 38.7354314327cqh 0px 0px #fff, 7.6636970043cqw 77.3265808821cqh 0px 0px #fff, 47.0930695534cqw 85.9954953194cqh 0px 0px #fff, 86.2475991249cqw 78.9857029915cqh 0px 0px #fff, 88.1470322609cqw 1.404774189cqh 0px 0px #fff, 33.3394672722cqw 95.0103878975cqh 0px 0px #fff, 78.2458901405cqw 28.6744236946cqh 0px 0px #fff, 88.5925889015cqw 46.8454480171cqh 0px 0px #fff, 45.7479119301cqw 41.7658925056cqh 0px 0px #fff, 1.0119080544cqw 64.5160820335cqh 0px 0px #fff, 71.6549515724cqw 39.9007916451cqh 0px 0px #fff, 67.8819298744cqw 76.4441609383cqh 0px 0px #fff, 86.6072297096cqw 11.7889523506cqh 0px 0px #fff, 41.4844185114cqw 57.2803974152cqh 0px 0px #fff, 87.2894763947cqw 29.5681476593cqh 0px 0px #fff, 8.451128006cqw 92.0475512743cqh 0px 0px #fff, 96.1093783379cqw 83.301961422cqh 0px 0px #fff, 67.5425410271cqw 9.4092726707cqh 0px 0px #fff, 36.5304857492cqw 31.54733181cqh 0px 0px #fff, 91.4063215256cqw 92.8428411484cqh 0px 0px #fff, 96.3473081589cqw 68.0314779282cqh 0px 0px #fff, 33.6079359055cqw 24.6547460556cqh 0px 0px #fff, 33.9621305466cqw 10.820555687cqh 0px 0px #fff, 59.9221020937cqw 72.8411793709cqh 0px 0px #fff, 99.5463013649cqw 39.5305633545cqh 0px 0px #fff, 5.1210403442cqw 90.1275664568cqh 0px 0px #fff, 79.8241972923cqw 31.9721102715cqh 0px 0px #fff, 99.3709921837cqw 85.4731559753cqh 0px 0px #fff, 57.0530891418cqw 42.3712730408cqh 0px 0px #fff, 50.5494117737cqw 18.0407524109cqh 0px 0px #fff, 16.6867285967cqw 95.6224858761cqh 0px 0px #fff, 29.055762291cqw 43.1650876999cqh 0px 0px #fff, 28.5913228989cqw 93.6154127121cqh 0px 0px #fff, 94.7665929794cqw 69.5128202438cqh 0px 0px #fff, 62.0176076889cqw 43.1351423264cqh 0px 0px #fff, 52.3780584335cqw 84.9047422409cqh 0px 0px #fff, 35.6355428696cqw 20.4197645187cqh 0px 0px #fff, 45.7378178835cqw 7.4670910835cqh 0px 0px #fff, 46.4757591486cqw 43.4263706207cqh 0px 0px #fff, 14.9935245514cqw 18.742993474cqh 0px 0px #fff, 35.5024278164cqw 29.9000918865cqh 0px 0px #fff, 23.6766278744cqw 9.5646589994cqh 0px 0px #fff, 19.112432003cqw 84.3603998423cqh 0px 0px #fff, 0.2325773239cqw 22.5805070717cqh 0px 0px #fff, 93.4394419193cqw 42.2697305679cqh 0px 0px #fff, 83.7561845779cqw 44.793343544cqh 0px 0px #fff, 75.33390522cqw 75.6906747818cqh 0px 0px #fff, 26.0531663895cqw 91.2971735001cqh 0px 0px #fff, 82.72793293cqw 75.5850076675cqh 0px 0px #fff, 54.5745134354cqw 64.381814003cqh 0px 0px #fff, 53.0553102493cqw 88.3394479752cqh 0px 0px #fff, 75.4725694656cqw 84.6527338028cqh 0px 0px #fff, 82.312130928cqw 27.5282144547cqh 0px 0px #fff, 18.3371782303cqw 27.4029046297cqh 0px 0px #fff, 16.1636948586cqw 91.9397503138cqh 0px 0px #fff, 92.7269935608cqw 17.3502922058cqh 0px 0px #fff, 54.3171912432cqw 2.4210333824cqh 0px 0px #fff, 46.1502935737cqw 19.8450446129cqh 0px 0px #fff, 68.0237680674cqw 84.6764326096cqh 0px 0px #fff, 76.8630743027cqw 70.5683469772cqh 0px 0px #fff, 3.8278341293cqw 17.0513898134cqh 0px 0px #fff, 7.5507342815cqw 90.6239956617cqh 0px 0px #fff, 75.5396008492cqw 38.2543206215cqh 0px 0px #fff, 92.9331898689cqw 86.841070652cqh 0px 0px #fff, 56.6135525703cqw 34.9830269814cqh 0px 0px #fff, 90.170776844cqw 0.8747696877cqh 0px 0px #fff, 86.1890938133cqw 75.712454319cqh 0px 0px #fff, 77.3834347725cqw 81.9079995155cqh 0px 0px #fff, 52.8443455696cqw 48.1140732765cqh 0px 0px #fff, 59.6872448921cqw 70.5037713051cqh 0px 0px #fff, 65.1545643806cqw 75.3771424294cqh 0px 0px #fff, 95.3266263008cqw 77.3643136024cqh 0px 0px #fff, 79.2622685432cqw 90.7536149025cqh 0px 0px #fff, 83.7644696236cqw 18.9447045326cqh 0px 0px #fff, 63.7709766626cqw 35.7583999634cqh 0px 0px #fff, 96.3966369629cqw 55.2808761597cqh 0px 0px #fff, 99.1512298584cqw 9.24243927cqh 0px 0px #fff, 35.453799367cqw 94.6023344994cqh 0px 0px #fff, 32.6328158379cqw 64.356648922cqh 0px 0px #fff, 2.5034785271cqw 20.1514627784cqh 0px 0px #fff, 85.069167614cqw 41.4912581444cqh 0px 0px #fff, 96.552836895cqw 61.619412899cqh 0px 0px #fff, 22.0158457756cqw 44.9487119913cqh 0px 0px #fff, 25.5255937576cqw 49.2214441299cqh 0px 0px #fff, 78.3093690872cqw 14.0787363052cqh 0px 0px #fff, 43.1643754244cqw 21.7128396034cqh 0px 0px #fff, 14.6187931299cqw 82.3696196079cqh 0px 0px #fff, 62.1971845627cqw 61.0000371933cqh 0px 0px #fff, 88.3723020554cqw 53.833937645cqh 0px 0px #fff, 89.5916700363cqw 10.0848913193cqh 0px 0px #fff, 14.988592267cqw 67.7643954754cqh 0px 0px #fff, 75.2997875214cqw 75.0846385956cqh 0px 0px #fff, 55.5396556854cqw 50.9177684784cqh 0px 0px #fff, 57.288312912cqw 58.7089061737cqh 0px 0px #fff, 79.959821701cqw 34.5908641815cqh 0px 0px #fff, 62.0307445526cqw 72.5089550018cqh 0px 0px #fff, 43.5401439667cqw 36.7209911346cqh 0px 0px #fff, 28.5895824432cqw 74.29728508cqh 0px 0px #fff, 47.8431224823cqw 27.6206493378cqh 0px 0px #fff, 21.0273265839cqw 46.8863993883cqh 0px 0px #fff, 8.1629633904cqw 45.6290632486cqh 0px 0px #fff, 9.937787056cqw 17.8262978792cqh 0px 0px #fff, 71.6299712658cqw 90.714931488cqh 0px 0px #fff, 46.1800575256cqw 94.5155143738cqh 0px 0px #fff;
+  animation-duration: 60s;
+}
+
+@keyframes background-anim {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(100cqw, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .background div[class^=stars] {
+    animation-play-state: paused;
+  }
+}
+@property --translate-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+.visually-hidden {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  perspective: 1100px;
+  overflow: clip;
+}
+
+.space-jam-logo {
+  position: relative;
+  aspect-ratio: 72/46;
+  width: min(720px, 90vmin);
+  margin: 0;
+  container-type: size;
+  transform-style: preserve-3d;
+  z-index: auto;
+  opacity: 1;
+  transform: translateX(0%) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  transition: transform 1.1s cubic-bezier(0.2, 0.75, 0.25, 1);
+  animation: introAnim 1s backwards reverse;
+}
+.space-jam-logo:not(.can-animate) {
+  opacity: 0;
+  animation: none;
+  transition: none;
+}
+.space-jam-logo:not(.can-animate) .letter {
+  animation: none;
+}
+.space-jam-logo:not(.can-animate) .letter, .space-jam-logo:not(.can-animate) .ring {
+  transition: none;
+}
+.space-jam-logo .letter {
+  --translate-y: 0cqw;
+  --scale-x: 1;
+  display: inline-block;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 20cqw;
+  font-weight: normal;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0.03em 0.03em #11192f;
+  transform: scaleX(var(--scale-x)) translateY(var(--translate-y));
+  animation: letterAnim 0.9s forwards ease-in-out;
+}
+.space-jam-logo .letter:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-shadow: none;
+  background: radial-gradient(circle at center, #cede73 0%, #a5cd63 21%, #3ab473 36%, #036ba5 54%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-color: white;
+  -webkit-text-stroke-width: 0.55cqw;
+}
+.space-jam-logo .letter.s-s {
+  animation-delay: 1s;
+}
+.space-jam-logo .letter.s-p {
+  animation-delay: 1.1s;
+}
+.space-jam-logo .letter.s-a {
+  animation-delay: 1.2s;
+}
+.space-jam-logo .letter.s-c {
+  animation-delay: 1.3s;
+}
+.space-jam-logo .letter.s-e {
+  animation-delay: 1.4s;
+}
+.space-jam-logo .letter.j-j {
+  animation-delay: 1.5s;
+}
+.space-jam-logo .letter.j-a {
+  animation-delay: 1.6s;
+}
+.space-jam-logo .letter.j-m {
+  animation-delay: 1.7s;
+}
+.space-jam-logo .space {
+  position: absolute;
+  left: 0;
+  top: 16.66cqw;
+  display: flex;
+  font-size: 22.22cqw;
+  z-index: 2;
+}
+.space-jam-logo .space > .letter {
+  position: relative;
+  top: var(--dy, 0cqw);
+  margin-left: var(--kern, -0.1em);
+}
+.space-jam-logo .s-s {
+  --kern: 0;
+  font-size: 1em;
+  z-index: 4;
+}
+.space-jam-logo .s-s:after {
+  background-position: 0.03em 0.087em;
+}
+.space-jam-logo .s-p {
+  --dy: 1.67cqw;
+  font-size: 0.83em;
+  z-index: 3;
+}
+.space-jam-logo .s-p:after {
+  background-position: 0.06em 0.15em;
+}
+.space-jam-logo .s-a {
+  --dy: 0.42cqw;
+  --kern: -0.18em;
+  font-size: 0.96em;
+  z-index: 2;
+}
+.space-jam-logo .s-a:after {
+  background-position: -0.129em 0.16em;
+}
+.space-jam-logo .s-c {
+  --dy: 2.50cqw;
+  --kern: -0.18em;
+  font-size: 0.87em;
+  z-index: 3;
+}
+.space-jam-logo .s-c:after {
+  background-position: 0.057em 0.17em;
+}
+.space-jam-logo .s-e {
+  --dy: 0.70cqw;
+  --kern: -0.06em;
+  font-size: 0.87em;
+  z-index: 2;
+}
+.space-jam-logo .s-e:after {
+  background-position: -0.071em 0.178em;
+}
+.space-jam-logo .j-j {
+  --scale-x: 1.2;
+  position: absolute;
+  top: 2cqw;
+  left: 28cqw;
+  padding-left: 1.11cqw;
+  font-size: 69.44cqw;
+  font-family: "Boogaloo", sans-serif;
+  font-weight: 400;
+}
+.space-jam-logo .j-j:after {
+  padding-left: inherit;
+  background-position: -0.04em 0.05em;
+}
+.space-jam-logo .j-j.j-hook {
+  -webkit-mask: linear-gradient(#000 0 0) left bottom/0.16em 50% no-repeat;
+          mask: linear-gradient(#000 0 0) left bottom/0.16em 50% no-repeat;
+}
+.space-jam-logo .j-j.j-top {
+  z-index: 1;
+  clip-path: rect(0% 100% 0.4em 0%);
+}
+.space-jam-logo .j-a {
+  position: absolute;
+  top: 9.72cqw;
+  left: 52cqw;
+  font-size: 38.88cqw;
+  z-index: 3;
+}
+.space-jam-logo .j-a:after {
+  background-position: 0.035em 0.071em;
+}
+.space-jam-logo .j-m {
+  position: absolute;
+  top: 9.72cqw;
+  left: 70cqw;
+  font-size: 37.5cqw;
+  z-index: 2;
+}
+.space-jam-logo .j-m:after {
+  background-position: 0.111em 0.092em;
+}
+.space-jam-logo .rings {
+  position: absolute;
+  top: -1.3cqw;
+  left: 25cqw;
+  width: 55cqw;
+  height: 55cqw;
+  transform: rotate(8deg) skewX(-33deg);
+}
+.space-jam-logo .ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.space-jam-logo .ring:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+}
+.space-jam-logo .ring-1 {
+  width: 55cqw;
+  height: 55cqw;
+}
+.space-jam-logo .ring-1:after {
+  width: 55cqw;
+  height: 55cqw;
+  background: radial-gradient(circle closest-side, transparent 84.8363636364%, #f6eb16 84.8363636364%, #ed2224 88%, #35469d 100%);
+}
+.space-jam-logo .ring-2 {
+  width: 46.66cqw;
+  height: 46.66cqw;
+}
+.space-jam-logo .ring-2:after {
+  width: 46.66cqw;
+  height: 46.66cqw;
+  background: radial-gradient(circle closest-side, transparent 82.1260180026%, #f6eb16 82.1260180026%, #ed2224 88%, #35469d 100%);
+}
+.space-jam-logo .ring-3 {
+  width: 38.32cqw;
+  height: 38.32cqw;
+}
+.space-jam-logo .ring-3:after {
+  width: 38.32cqw;
+  height: 38.32cqw;
+  background: radial-gradient(circle closest-side, transparent 78.235908142%, #f6eb16 78.235908142%, #ed2224 88%, #35469d 100%);
+}
+.space-jam-logo .ring-4 {
+  width: 29.98cqw;
+  height: 29.98cqw;
+}
+.space-jam-logo .ring-4:after {
+  width: 29.98cqw;
+  height: 29.98cqw;
+  background: radial-gradient(circle closest-side, transparent 72.1814543029%, #f6eb16 72.1814543029%, #ed2224 88%, #35469d 100%);
+}
+.space-jam-logo .space, .space-jam-logo .rings {
+  transform-style: preserve-3d;
+}
+.space-jam-logo .letter, .space-jam-logo .ring {
+  translate: 0 0 var(--layer-depth, 0cqw);
+  transition: translate 1.1s cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.space-jam-logo.reveal {
+  transform: translateX(10%) scale(0.82) rotateX(28deg) rotateY(-38deg) rotateZ(-5deg);
+}
+.space-jam-logo.reveal .s-s {
+  --layer-depth: 30cqw;
+}
+.space-jam-logo.reveal .s-p {
+  --layer-depth: 25cqw;
+}
+.space-jam-logo.reveal .s-a {
+  --layer-depth: 20cqw;
+}
+.space-jam-logo.reveal .s-c {
+  --layer-depth: 25cqw;
+}
+.space-jam-logo.reveal .s-e {
+  --layer-depth: 20cqw;
+}
+.space-jam-logo.reveal .j-a {
+  --layer-depth: 15cqw;
+}
+.space-jam-logo.reveal .j-m {
+  --layer-depth: 5cqw;
+}
+.space-jam-logo.reveal .j-top, .space-jam-logo.reveal .j-hook {
+  --layer-depth: 10cqw;
+}
+.space-jam-logo.reveal .ring-1 {
+  --layer-depth: -15cqw;
+}
+.space-jam-logo.reveal .ring-2 {
+  --layer-depth: -20cqw;
+}
+.space-jam-logo.reveal .ring-3 {
+  --layer-depth: -25cqw;
+}
+.space-jam-logo.reveal .ring-4 {
+  --layer-depth: -30cqw;
+}
+.space-jam-logo.reveal .j-back {
+  --layer-depth: -40cqw;
+}
+
+@keyframes introAnim {
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+@keyframes letterAnim {
+  0% {
+    --translate-y: 0cqw;
+  }
+  25% {
+    --translate-y: -1.38cqw;
+  }
+  60% {
+    --translate-y: 2.77cqw;
+  }
+  100% {
+    --translate-y: 0cqw;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-jam-logo,
+  .space-jam-logo .letter,
+  .space-jam-logo .ring {
+    animation: none;
+    transition: none;
+  }
+}
+.controls {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  right: max(1.5rem, env(safe-area-inset-right));
+  z-index: 10;
+  border: 1px solid #365472;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(23, 40, 62, 0.95), rgba(8, 15, 32, 0.95));
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), inset 0 1px rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  font: 400 1.125rem/1 "Boogaloo", sans-serif;
+  letter-spacing: 0.06em;
+  color: #dce8ef;
+  text-transform: uppercase;
+}
+.controls button, .controls label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.625rem;
+}
+.controls button {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  text-transform: inherit;
+}
+.controls button:active {
+  transform: translateY(1px);
+}
+.controls button:focus-visible,
+.controls label:has([type=checkbox]:focus-visible) {
+  border-radius: 999px;
+  outline: 2px solid #bcde87;
+}
+.controls .replay-icon {
+  display: inline-block;
+  color: #a5cd63;
+  font-family: system-ui, sans-serif;
+  font-weight: 400;
+  transform: rotate(0deg);
+  transition: transform 0.55s ease, color 0.2s;
+}
+.controls #replay-btn:hover .replay-icon {
+  transform: rotate(-360deg);
+}
+.controls [type=checkbox] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.controls [type=checkbox]:focus-visible {
+  outline: none;
+}
+.controls [type=checkbox]:after {
+  content: "";
+  display: block;
+  cursor: pointer;
+  width: 1em;
+  height: 1em;
+  background-color: #000;
+  border: 2px solid #617995;
+  border-radius: 50%;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.controls [type=checkbox]:checked:after {
+  border-color: #bcde87;
+  background-color: #a5cd63;
+  box-shadow: 0 0 12px rgba(165, 205, 99, 0.15);
+}
+
+@media print {
+  .controls {
+    display: none;
+  }
 }/*# sourceMappingURL=styles.css.map */

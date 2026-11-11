@@ -3,10 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Jam 2026</title>
-  <link rel="stylesheet" href="styles.css" type="text/css">
+  <title>Space Jam Logo CSS Only 🐰🏀 - 2026</title>
+  <link
+    rel="preload"
+    href="./font/Luckiest_Guy/LuckiestGuy-Regular.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  >
+  <link
+    rel="preload"
+    href="./font/Boogaloo/Boogaloo-Regular.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  >
+  <link rel="stylesheet" href="fonts.css" type="text/css" />
+  <link rel="stylesheet" href="styles.css" type="text/css" />
 </head>
 <body>
-  <h1>Let's get ready to rumble!</h1>
+  <div class="background">
+    <div class="stars stars-lg"></div>
+    <div class="stars stars-md"></div>
+    <div class="stars stars-sm"></div>
+  </div>
+  <div class="container">
+    <h1 class="space-jam-logo">
+      <span class="visually-hidden">Space Jam</span>
+      <span class="letter j-j j-back" data-text="J" aria-hidden="true">J</span>
+      <span class="rings" aria-hidden="true">
+        <span class="ring ring-1"></span>
+        <span class="ring ring-2"></span>
+        <span class="ring ring-3"></span>
+        <span class="ring ring-4"></span>
+      </span>
+      <span class="space" aria-hidden="true">
+        <span class="letter s-s" data-text="S">S</span>
+        <span class="letter s-p" data-text="p">p</span>
+        <span class="letter s-a" data-text="a">a</span>
+        <span class="letter s-c" data-text="c">c</span>
+        <span class="letter s-e" data-text="e">e</span>
+      </span>
+      <span class="letter j-j j-hook" data-text="J" aria-hidden="true">J</span>
+      <span class="letter j-a" data-text="a" aria-hidden="true">a</span>
+      <span class="letter j-m" data-text="m" aria-hidden="true">m</span>
+      <span class="letter j-j j-top" data-text="J" aria-hidden="true">J</span>
+    </h1>
+  </div>
+  <div class="controls">
+    <button id="replay-btn">
+      <span class="replay-icon" aria-hidden="true">&#8634;</span> replay
+    </button>
+    <label>
+      <input type="checkbox" class="control" id="reveal-input">
+      <span>reveal</span>
+    </label>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>
