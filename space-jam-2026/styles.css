@@ -472,4 +472,10 @@ body {
   border-color: #bcde87;
   background-color: #a5cd63;
   box-shadow: 0 0 12px rgba(165, 205, 99, 0.15);
+}
+
+@media print {
+  .controls {
+    display: none;
+  }
 }/*# sourceMappingURL=styles.css.map */

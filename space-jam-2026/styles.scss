@@ -560,3 +560,12 @@ $letter-anim-length: .9s;
     box-shadow: 0 0 12px rgba(#a5cd63, .15);
   }
 }
+
+
+// ## Print ##
+
+@media print {
+  .controls {
+    display: none;
+  }
+}
