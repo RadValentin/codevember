@@ -110,6 +110,17 @@ body {
   transition: transform 1.1s cubic-bezier(0.2, 0.75, 0.25, 1);
   animation: introAnim 1s backwards reverse;
 }
+.space-jam-logo:not(.can-animate) {
+  opacity: 0;
+  animation: none;
+  transition: none;
+}
+.space-jam-logo:not(.can-animate) .letter {
+  animation: none;
+}
+.space-jam-logo:not(.can-animate) .letter, .space-jam-logo:not(.can-animate) .ring {
+  transition: none;
+}
 .space-jam-logo .letter {
   --translate-y: 0cqw;
   --scale-x: 1;

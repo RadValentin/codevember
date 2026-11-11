@@ -201,6 +201,20 @@ $letter-anim-length: .9s;
   transition: transform 1.1s cubic-bezier(.2, .75, .25, 1);
   animation: introAnim $initial-anim-length backwards reverse;
 
+  &:not(.can-animate) {
+    opacity: 0;
+    animation: none;
+    transition: none;
+
+    .letter {
+      animation: none;
+    }
+
+    .letter, .ring {
+      transition: none;
+    }
+  }
+
   // For each letter the element displays the shadow and the pseudo element displays
   // the background and stroke.
   .letter {
