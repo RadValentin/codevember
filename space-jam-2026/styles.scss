@@ -66,6 +66,10 @@ $sm-stars: get_stars_bg_shadow(300, 0, 0);
 $md-stars: get_stars_bg_shadow(200, 0, 0);
 $lg-stars: get_stars_bg_shadow(100, 0, 0);
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   background-color: #000;
 }
@@ -468,19 +472,32 @@ $letter-anim-length: .9s;
 
 .controls {
   display: flex;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #111;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: 600;
-  color: coral;
-  text-transform: lowercase;
+  align-items: center;
+  position: fixed;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  right: max(1.5rem, env(safe-area-inset-right));
+  z-index: 10;
+  border: 1px solid #365472;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(#17283e, .95), rgba(#080f20, .95));
+  box-shadow: 0 8px 28px rgba(#000, .45), inset 0 1px rgba(#fff, .06);
+  backdrop-filter: blur(12px);
+  font: 400 1.125rem / 1 'Boogaloo', sans-serif;
+  letter-spacing: .06em;
+  color: #dce8ef;
+  text-transform: uppercase;
+
+  button, label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    margin: 0;
+    padding: .625rem;
+  }
 
   button {
-    margin: 0;
-    padding: .6rem;
-    cursor: pointer;
     background-color: transparent;
     border: none;
     font-family: inherit;
@@ -488,24 +505,23 @@ $letter-anim-length: .9s;
     font-weight: inherit;
     color: inherit;
     text-transform: inherit;
+
+    &:active {
+      transform: translateY(1px);
+    }
   }
 
   .replay-icon {
     display: inline-block;
-    color: #ed2224;
+    color: #a5cd63;
+    font-family: system-ui, sans-serif;
+    font-weight: 400;
     transform: rotate(0deg);
-    transition: all .6s;
+    transition: transform .55s ease, color .2s;
   }
 
   #replay-btn:hover .replay-icon {
     transform: rotate(-360deg);
-  }
-
-  label {
-    display: flex;
-    padding: .6rem;
-    align-items: center;
-    cursor: pointer;
   }
 
   [type=checkbox] {
@@ -519,13 +535,14 @@ $letter-anim-length: .9s;
     width: 1em;
     height: 1em;
     background-color: #000;
-    border: 2px solid #666;
+    border: 2px solid #617995;
     border-radius: 50%;
+    transition: background-color .2s, border-color .2s, box-shadow .2s;
   }
 
   [type=checkbox]:checked:after {
-    background-color: #fff;
-    border: 2px solid #ed2224;
-    box-shadow: 0px 0px 3px 2px #ed2224;
+    border-color: #bcde87;
+    background-color: #a5cd63;
+    box-shadow: 0 0 12px rgba(#a5cd63, .15);
   }
 }
