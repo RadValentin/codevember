@@ -442,6 +442,11 @@ body {
 .controls button:active {
   transform: translateY(1px);
 }
+.controls button:focus-visible,
+.controls label:has([type=checkbox]:focus-visible) {
+  border-radius: 999px;
+  outline: 2px solid #bcde87;
+}
 .controls .replay-icon {
   display: inline-block;
   color: #a5cd63;
@@ -457,6 +462,9 @@ body {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+.controls [type=checkbox]:focus-visible {
+  outline: none;
 }
 .controls [type=checkbox]:after {
   content: "";

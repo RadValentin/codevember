@@ -526,6 +526,12 @@ $letter-anim-length: .9s;
     }
   }
 
+  button:focus-visible,
+  label:has([type=checkbox]:focus-visible) {
+    border-radius: 999px;
+    outline: 2px solid #bcde87;
+  }
+
   .replay-icon {
     display: inline-block;
     color: #a5cd63;
@@ -541,6 +547,10 @@ $letter-anim-length: .9s;
 
   [type=checkbox] {
     appearance: none;
+  }
+
+  [type=checkbox]:focus-visible {
+    outline: none;
   }
 
   [type=checkbox]:after {
