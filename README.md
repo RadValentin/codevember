@@ -4,9 +4,9 @@ I’m Valentin Radulescu, and this is an archive of my creative coding experimen
 
 ## Newer projects
 
-| Day | Title | Experiment | CodePen |
+| Date | Title | Experiment | CodePen |
 | --- | --- | --- | --- |
-| 2026 | 🏀 Space Jam | [View experiment](space-jam-2026/index.html) | |
+| Nov '26 | 🏀 Space Jam Logo Remake | [View experiment](space-jam-2026/index.html) | |
 
 ## Codevember 2017
 
